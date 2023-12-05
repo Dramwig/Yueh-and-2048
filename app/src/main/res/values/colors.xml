@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+
+    <color name="button_text">#000000</color>
+    <color name="button_subtext">#FF6500</color>
+    <color name="button_icon">#333333</color>
+    <color name="button_icon_homepage">#111111</color>
+    <color name="game_box_frame">#E6FFFFFF</color>
+    <color name="game_box_background">#50ffffff</color>
+    <color name="game_box_background_grey">#50cccccc</color>
+    <color name="avatar_frame">#999999</color>
+    <color name="button_text_yes">#8BC34A</color>
+    <color name="button_text_no">#FF9800</color>
+
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="gameViewBackgroundColor">#D2B48C</color>
+    <color name="textColor0">#00000000</color>
+    <color name="textColor2">#333300</color>
+    <color name="textColor4">#333300</color>
+    <color name="textColorCommon">#FFFAFA</color>
+    <color name="backgroundColor0">#00DEB887</color>
+    <color name="backgroundColor2">#FDF5E6</color>
+    <color name="backgroundColor4">#FFE4B5</color>
+    <color name="backgroundColor8">#FFE4C4</color>
+    <color name="backgroundColor16">#FFDAB9</color>
+    <color name="backgroundColor32">#FF7F50</color>
+    <color name="backgroundColor64">#FF4500</color>
+    <color name="backgroundColor128">#FF8C00</color>
+    <color name="backgroundColor256">#FFD700</color>
+    <color name="backgroundColor512">#9ACD32</color>
+    <color name="backgroundColor1024">#483D8B</color>
+    <color name="backgroundColor2048">#4B0082</color>
+    <color name="backgroundColorBiggerThan2048">#000000</color>
+
+
+
+</resources>

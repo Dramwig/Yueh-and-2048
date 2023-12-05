@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 背景图片 -->
+    <ImageView
+        android:id="@+id/background_view_to_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg4" />
+
+    <!-- 白色遮罩 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50FFFFFF" />
+
+    <!-- 其他的容器和控件 -->
+
+    <!-- 顶部的按钮 -->
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_avatar_container_height"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="@dimen/top_buttons_container_marginTop">
+
+        <RelativeLayout
+            android:layout_width="@dimen/top_avatar_container_height"
+            android:layout_height="@dimen/top_avatar_container_height"
+            android:layout_centerVertical="true">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@color/avatar_frame"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ringImageView" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/top_avatar_height"
+                android:layout_height="@dimen/top_avatar_height"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar"
+                app:shapeAppearanceOverlay="@style/ringImageView" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <!-- 中间的容器 -->
+    <RelativeLayout
+        android:id="@+id/middle_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_buttons_container"
+        android:layout_below="@id/top_buttons_container"
+        android:orientation="vertical">
+
+        <!-- 一些话语 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/button_select"
+            android:layout_marginLeft="50sp"
+            android:layout_marginTop="110sp"
+            android:layout_marginRight="50sp">
+
+            <TextView
+                android:id="@+id/centered_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:gravity="center"
+                android:text="It becomes small as one song."
+                android:textColor="#000000"
+                android:textSize="40sp" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/button_select"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/button_container_padding"
+            android:clipToPadding="false"
+            android:paddingLeft="@dimen/button_merge"
+            android:paddingRight="@dimen/button_merge">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/button_merge"
+                android:layout_weight="1"
+                app:cardCornerRadius="@dimen/button_radius"
+                app:cardElevation="0sp">
+
+                <!-- 选择框背景 -->
+                <com.example.a2048.BlurBGImageView
+                    android:id="@+id/button_select_bg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:color="#00000000"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg1" />
+
+                <!-- 白色遮罩 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#80FFFFFF" />
+
+                <Button
+                    android:id="@+id/btn_startGame_common"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@xml/button_selector"
+                    android:padding="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/button_marge"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="经典模式"
+                        android:textColor="@color/button_text"
+                        android:textSize="@dimen/button_text" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="4×4传统玩法"
+                        android:textColor="@color/button_subtext"
+                        android:textSize="@dimen/button_subtext" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/button_merge"
+                android:layout_weight="1"
+                app:cardCornerRadius="@dimen/button_radius"
+                app:cardElevation="0sp">
+
+                <!-- 选择框背景 -->
+                <com.example.a2048.BlurBGImageView
+                    android:id="@+id/button_select_bg2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:color="#00000000"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg1" />
+
+                <!-- 白色遮罩 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#80FFFFFF" />
+
+                <Button
+                    android:id="@+id/btn_startGame_train"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@xml/button_selector"
+                    android:padding="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/button_marge"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="训练场"
+                        android:textColor="@color/button_text"
+                        android:textSize="@dimen/button_text" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="暂未开放"
+                        android:textColor="@color/button_subtext"
+                        android:textSize="@dimen/button_subtext" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- 底部按钮 -->
+    <RelativeLayout
+        android:id="@+id/bottom_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_buttons_container_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/bottom_buttons_container_marginBottom"
+        android:padding="10sp">
+
+        <ImageButton
+            android:id="@+id/button_info"
+            android:layout_width="40sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_find" />
+
+        <ImageButton
+            android:id="@+id/button_collection"
+            android:layout_width="40sp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_col" />
+
+        <ImageButton
+            android:id="@+id/button_data"
+            android:layout_width="40sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_data" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

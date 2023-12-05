@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 背景图片 -->
+    <com.example.a2048.BlurBGImageView
+        android:id="@+id/background_view_to_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg1" />
+
+    <!-- 白色遮罩 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50FFFFFF" />
+
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_buttons_container"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/top_buttons_container_marginTop"
+        android:padding="@dimen/game_page_padding">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="@dimen/button_radius"
+            app:cardElevation="0sp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/button_merge">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/view_game_box"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/top_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="存档"
+                        android:textColor="#000000"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/text_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="仅能在训练模式使用"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <include
+                        android:id="@+id/save_box0"
+                        layout="@layout/card_view_layout" />
+
+                    <include
+                        android:id="@+id/save_box1"
+                        layout="@layout/card_view_layout" />
+
+                    <include
+                        android:id="@+id/save_box2"
+                        layout="@layout/card_view_layout" />
+
+                    <include
+                        android:id="@+id/save_box3"
+                        layout="@layout/card_view_layout" />
+
+                    <include
+                        android:id="@+id/save_box4"
+                        layout="@layout/card_view_layout" />
+
+                    <include
+                        android:id="@+id/save_box5"
+                        layout="@layout/card_view_layout" />
+
+                </LinearLayout>
+
+
+            </ScrollView>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_text_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/button_container_padding"
+        android:paddingLeft="@dimen/button_merge"
+        android:paddingRight="@dimen/button_merge">
+
+
+        <RelativeLayout
+            android:id="@+id/bnt_text_no"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/button_merge"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/button_merge"
+                android:layout_marginTop="@dimen/button_merge"
+                android:layout_marginEnd="@dimen/button_merge"
+                android:layout_marginBottom="@dimen/button_merge"
+                android:gravity="bottom|center"
+                android:text="退出"
+                android:textColor="@color/black"
+                android:textSize="@dimen/button_text" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="5dp"
+                android:layout_alignBottom="@id/text_no"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-8dp"
+                android:background="@drawable/rounded_line_no" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bnt_text_yes"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/button_merge"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_yes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_merge"
+                android:gravity="bottom|center"
+                android:text="确定"
+                android:textColor="@color/black"
+                android:textSize="@dimen/button_text" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="5dp"
+                android:layout_alignBottom="@id/text_yes"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-8dp"
+                android:background="@drawable/rounded_line_yes" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

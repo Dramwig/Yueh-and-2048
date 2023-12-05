@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 背景图片 -->
+    <com.example.a2048.BlurBGImageView
+        android:id="@+id/background_view_to_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg1" />
+
+    <!-- 白色遮罩 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50FFFFFF" />
+
+    <!-- 其他的容器和控件 -->
+
+    <!-- 顶部的按钮 -->
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_buttons_container_height"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/top_buttons_container_marginTop"
+        android:padding="@dimen/top_buttons_container_padding">
+
+        <!-- 返回按钮 -->
+        <ImageButton
+            android:id="@+id/button_return"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_return" />
+
+        <!-- 数值显示 -->
+        <TextView
+            android:id="@+id/text_move"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/button_return"
+            android:gravity="center"
+            android:text="@string/_0"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <!-- 排名按钮 -->
+        <ImageButton
+            android:id="@+id/button_rank"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_rank" />
+
+        <!-- 重新开始按钮 -->
+        <ImageButton
+            android:id="@+id/button_restart"
+            android:layout_width="@dimen/top_buttons_container_width"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/button_rank"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_restart" />
+
+        <TextView
+            android:id="@+id/button_note_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/button_restart"
+            android:width="50dp"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:id="@+id/button_note_img"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/button_note_text"
+            android:scaleType="centerInside" />
+
+    </RelativeLayout>
+
+    <!-- 中间的容器 -->
+    <RelativeLayout
+        android:id="@+id/middle_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_buttons_container"
+        android:layout_below="@id/top_buttons_container"
+        android:orientation="vertical"
+        android:padding="@dimen/game_page_padding">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/view_game_box"
+            android:layout_alignParentTop="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/top_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="得分"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/text_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="#000000"
+                android:textSize="40sp" />
+
+        </LinearLayout>
+
+        <com.example.a2048.GameView
+            android:id="@+id/grid_game_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@id/view_game_box"
+            android:layout_alignTop="@id/view_game_box"
+            android:layout_alignRight="@id/view_game_box"
+            android:layout_alignBottom="@id/view_game_box"
+            android:layout_marginStart="@dimen/game_box_frame"
+            android:layout_marginTop="@dimen/game_box_frame"
+            android:layout_marginEnd="@dimen/game_box_frame"
+            android:layout_marginBottom="@dimen/game_box_frame"
+            android:useDefaultMargins="false" />
+
+        <com.example.a2048.SquareView
+            android:id="@+id/view_game_box"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rounded_square" />
+
+
+    </RelativeLayout>
+
+    <!-- 底部按钮 -->
+    <RelativeLayout
+        android:id="@+id/bottom_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_buttons_container_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/bottom_buttons_container_marginBottom"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/button_save"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_save" />
+
+        <ImageButton
+            android:id="@+id/button_revoke"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_revoke" />
+
+        <ImageButton
+            android:id="@+id/button_load"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_load" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

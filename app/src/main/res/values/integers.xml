@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="moveTime">100</integer>
+    <integer name="mergeTime">200</integer>
+    <integer name="createTime">300</integer>
+</resources>
