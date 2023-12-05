@@ -21,6 +21,7 @@
 移步[Release](https://github.com/Dramwig/Yueh-and-2048/releases)直接下载安装包，在Android手机安装食用。
 
 <details>
+  
 1. 克隆或下载本项目的代码到本地计算机。
   
 2. 在Android开发环境中打开项目。
@@ -28,6 +29,7 @@
 3. 构建并安装应用程序到Android设备或模拟器。
 
 4. 打开应用程序并开始玩玥与2048游戏。
+
 </details>
 
 ## 贡献
