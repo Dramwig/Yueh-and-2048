@@ -37,14 +37,14 @@
 
 ## 版权和许可
 
-版权所有 (c) 2023 您的姓名或组织名称
+版权所有 (c) 2023 Zixi Wang
 
-该项目在开源许可证下发布，详细信息请参阅 [LICENSE](链接到您的许可证文件) 文件。
+该项目在开源许可证下发布，详细信息请参阅 [LICENSE]((https://github.com/Dramwig/Yueh-and-2048/blob/master/LICENSE)) 文件。
 
 ## 致谢
 
 特别感谢以下个人或组织对该项目的贡献：
 
-- [@Yueh]()提供了学习和完成本项目的动力
+- [@Aurora°]()提供了学习和完成本项目的动力
 - [@AFXR Hikari](https://github.com/AFXR17light)提供音效的设计
 - [@理想国]()进行软件测试与建议
