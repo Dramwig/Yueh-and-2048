@@ -7,8 +7,8 @@
 
 ## 🍉功能特性
 
-<div style="align: center">
-<img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(8).png"/>
+<div align=right>
+<img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(8).png" width="180" height="105"/>
 </div>
 
 - 基于4×4版本的2048游戏
