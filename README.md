@@ -7,9 +7,10 @@
 
 ## 🍉功能特性
 
-<div align=right>
-<img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(8).png" width="180" height="105"/>
+<div>
+  <img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(8).png" alt="Image" align="right" width="300px" />
 </div>
+
 
 - 基于4×4版本的2048游戏
 - 动画和音效增强游戏体验
@@ -35,6 +36,12 @@
 4. 打开应用程序并开始玩玥与2048游戏。
 
 </details>
+
+<div align=center>
+  <img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(1).png" alt="Image 1" width="200px" />
+  <img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(9).png" alt="Image 2" width="200px" />
+  <img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(10).png" alt="Image 3" width="200px" />
+</div>
 
 ## 贡献
 
