@@ -17,9 +17,7 @@
 - 计分功能
 - 存档和读档功能
 - 随机选择并虚化处理的背景图
-- 待完成部分：主页按钮功能未完全实现，包括数据展示、设置页面和个人主页等功能
-- 待优化部分：背景图库图片良莠不齐待优化，Activity切换时因为挖空屏闪动
-
+  
 ## 安装和使用
 
 移步[Release](https://github.com/Dramwig/Yueh-and-2048/releases)直接下载安装包，在Android手机安装食用。
@@ -41,6 +39,14 @@
   <img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(9).png" alt="Image 2" width="200px" />
   <img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(10).png" alt="Image 3" width="200px" />
 </div>
+
+## 计划
+
+- 待完成部分：主页按钮功能未完全实现，包括数据展示、设置页面和个人主页等功能
+- 待优化部分：
+  - 背景图库图片良莠不齐待优化；
+  - Activity切换时因为挖空屏闪动；
+  - 不适配某些挖空屏幕，按钮会被遮挡
 
 ## 贡献
 
