@@ -7,6 +7,10 @@
 
 ## 🍉功能特性
 
+<div style="align: center">
+<img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(8).png"/>
+</div>
+
 - 基于4×4版本的2048游戏
 - 动画和音效增强游戏体验
 - 撤回上一步功能
