@@ -7,10 +7,9 @@
 
 ## 🍉功能特性
 
-<div>
+<div style="display: inline-block; box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.9);">
   <img src="https://github.com/Dramwig/Yueh-and-2048/blob/master/fig/show%20(8).png" alt="Image" align="right" width="300px" />
 </div>
-
 
 - 基于4×4版本的2048游戏
 - 动画和音效增强游戏体验
