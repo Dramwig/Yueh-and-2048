@@ -49,10 +49,12 @@
   - 不适配某些挖空屏幕，按钮会被遮挡
 
 <details>
-已发送版本记录：
-  
-  - 23/10/18 game2048-1.3-release.apk
-  - 23/10/26 game2048-1.3-release.apk
+  <summary>已发送版本记录</summary>
+  <p>
+  <ul>
+    <li>版本 1.2 - 发布日期 2023年10月18日 - game2048-1.3-release.apk</li>
+    <li>版本 1.3 - 发布日期 2023年10月26日 - game2048-1.4-release.apk</li>
+  </ul>
 </details>
 
 ## 贡献
