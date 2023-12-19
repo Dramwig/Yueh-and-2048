@@ -53,8 +53,8 @@
   <summary>已发送版本记录</summary>
   <p>
   <ul>
-    <li>版本 1.2 - 发布日期 2023年10月18日 - game2048-1.3-release.apk</li>
-    <li>版本 1.3 - 发布日期 2023年10月26日 - game2048-1.4-release.apk</li>
+    <li>版本 1.3 - 发布日期 2023年10月18日 - game2048-1.3-release.apk</li>
+    <li>版本 1.4 - 发布日期 2023年10月26日 - game2048-1.4-release.apk</li>
   </ul>
 </details>
 
