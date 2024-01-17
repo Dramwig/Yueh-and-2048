@@ -17,7 +17,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#50FFFFFF" />
+        android:background="#D5F4F3F3" />
 
     <!-- 其他的容器和控件 -->
 
@@ -42,7 +42,7 @@
 
         <!-- 排名按钮 -->
         <ImageButton
-            android:id="@+id/button_rank"
+            android:id="@+id/button_edit"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
@@ -144,7 +144,7 @@
                     android:background="#80FFFFFF" />
 
                 <Button
-                    android:id="@+id/btn_startGame_common"
+                    android:id="@+id/btn1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@xml/button_selector"
@@ -193,7 +193,7 @@
                     android:background="#00FFFFFF" />
 
                 <Button
-                    android:id="@+id/btn_3"
+                    android:id="@+id/btn2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@xml/button_selector"
@@ -241,7 +241,7 @@
                     android:background="#00FFFFFF" />
 
                 <Button
-                    android:id="@+id/btn_startGame_train"
+                    android:id="@+id/btn3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@xml/button_selector"
@@ -393,6 +393,7 @@
                     android:padding="12dp">
 
                     <RelativeLayout
+                        android:id="@+id/rl_set_1"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/set_container_height"
                         android:layout_alignParentTop="true">
@@ -447,6 +448,7 @@
                         android:layout_height="8dp" />
 
                     <RelativeLayout
+                        android:id="@+id/rl_set_2"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/set_container_height"
                         android:layout_alignParentTop="true">
@@ -480,7 +482,7 @@
                             android:layout_toEndOf="@id/set_icon2"
                             android:gravity="center"
                             android:paddingLeft="10dp"
-                            android:text="外观 &amp; 音效个性化"
+                            android:text="设置"
                             android:textColor="#000000"
                             android:textSize="12sp" />
 

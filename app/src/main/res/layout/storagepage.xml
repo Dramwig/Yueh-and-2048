@@ -34,15 +34,14 @@
             app:cardCornerRadius="@dimen/button_radius"
             app:cardElevation="0sp">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/button_merge">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@id/view_game_box"
                     android:layout_alignParentTop="true"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -60,37 +59,68 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="仅能在训练模式使用"
-                        android:textColor="#000000"
+                        android:textColor="#303030"
                         android:textSize="10sp" />
 
-                    <include
-                        android:id="@+id/save_box0"
-                        layout="@layout/card_view_layout" />
-
-                    <include
-                        android:id="@+id/save_box1"
-                        layout="@layout/card_view_layout" />
-
-                    <include
-                        android:id="@+id/save_box2"
-                        layout="@layout/card_view_layout" />
-
-                    <include
-                        android:id="@+id/save_box3"
-                        layout="@layout/card_view_layout" />
-
-                    <include
-                        android:id="@+id/save_box4"
-                        layout="@layout/card_view_layout" />
-
-                    <include
-                        android:id="@+id/save_box5"
-                        layout="@layout/card_view_layout" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#DADADA"/>
 
                 </LinearLayout>
 
+                <!-- ScrollView的外层父布局 -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/title">
 
-            </ScrollView>
+                    <!-- ScrollView -->
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/button_merge"
+                        android:paddingRight="@dimen/button_merge"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <include
+                                android:id="@+id/save_box0"
+                                layout="@layout/card_view_layout" />
+
+                            <include
+                                android:id="@+id/save_box1"
+                                layout="@layout/card_view_layout" />
+
+                            <include
+                                android:id="@+id/save_box2"
+                                layout="@layout/card_view_layout" />
+
+                            <include
+                                android:id="@+id/save_box3"
+                                layout="@layout/card_view_layout" />
+
+                            <include
+                                android:id="@+id/save_box4"
+                                layout="@layout/card_view_layout" />
+
+                            <include
+                                android:id="@+id/save_box5"
+                                layout="@layout/card_view_layout" />
+
+                        </LinearLayout>
+
+
+                    </ScrollView>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 

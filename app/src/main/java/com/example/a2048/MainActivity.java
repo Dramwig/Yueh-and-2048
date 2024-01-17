@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.imageview.ShapeableImageView;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +40,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // 设置 ImageView
         Random random = new Random();
         int randomIndex = random.nextInt(100);
-        if (randomIndex <= 20) {
+        if (randomIndex <= 5) {
             String resourceName = null;
             try {
                 ImageView pic = findViewById(R.id.background_view_to_blur);
@@ -83,6 +85,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         button1.setOnClickListener(this);
         Button button2 = findViewById(R.id.btn_startGame_train);
         button2.setOnClickListener(this);
+        ShapeableImageView imageButton = findViewById(R.id.imageView);
+        imageButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -94,7 +99,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
             startActivity(intent);
         } else if (id == R.id.btn_startGame_train) {
 
-        } else {
+        } else if (id == R.id.imageView){
+            intent.setClass(this, PersonActivity.class);//也可以这样写intent.setClass(MainActivity.this, OtherActivity.class);
+            startActivity(intent);
+        }else{
             Log.e("onClick", "识别到未知的id");
         }
 

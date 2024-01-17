@@ -22,6 +22,9 @@
             android:name=".TestActivity"
             android:exported="true" />
         <activity
+            android:name=".PersonActivity"
+            android:exported="false" />
+        <activity
             android:name=".StorageActivity"
             android:exported="false"
             android:label="@string/title_activity_storage"

@@ -50,6 +50,8 @@
                 android:layout_height="@dimen/top_avatar_height"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:clickable="true"
+                android:focusable="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/avatar"
                 app:shapeAppearanceOverlay="@style/ringImageView" />
@@ -64,8 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_buttons_container"
-        android:layout_below="@id/top_buttons_container"
-        android:orientation="vertical">
+        android:layout_below="@id/top_buttons_container">
 
         <!-- 一些话语 -->
         <FrameLayout
