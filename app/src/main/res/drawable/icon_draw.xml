@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+    <path
+        android:pathData="M899 254.8l53.8-55.8c35.8-37 34.8-96.2-2.4-132l-9.6-9.2c-37-35.8-96.2-34.8-132 2.4l-27.8 28.8 143.8 139-25.8 26.8zM345.8 539.8l-53.2 189.6s-2.2 7.2 0.2 9.4c2.4 2.4 9.4-0.2 9.4-0.2l187.6-59.8L878.8 276l-143.8-139 45.8-47.4-435 450.2zM924 306.8v474.6c0 96.8-78.4 175.2-175.2 175.2H250.2c-96.8 0-175.2-78.4-175.2-175.2V242.6c0-96.8 78.4-175.2 175.2-175.2h442.2L757.6 0H223.2C104.2 0 7.6 96.6 7.6 215.6v592.8C7.6 927.4 104.2 1024 223.2 1024h552.4c119 0 215.6-96.6 215.6-215.6V237.2L924 306.8z"
+        android:fillColor="@color/button_icon_homepage"/>
+</vector>

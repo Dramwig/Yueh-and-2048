@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 背景图片 -->
+    <com.example.a2048.BlurBGImageView
+        android:id="@+id/background_view_to_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg1" />
+
+    <!-- 白色遮罩 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50FFFFFF" />
+
+    <!-- 其他的容器和控件 -->
+
+    <!-- 顶部的按钮 -->
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_buttons_container_height"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/top_buttons_container_marginTop"
+        android:padding="@dimen/top_buttons_container_padding">
+
+        <!-- 返回按钮 -->
+        <ImageButton
+            android:id="@+id/button_return"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_return" />
+
+        <!-- 排名按钮 -->
+        <ImageButton
+            android:id="@+id/button_rank"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_draw" />
+
+    </RelativeLayout>
+
+    <!-- 中间的容器 -->
+
+    <LinearLayout
+        android:id="@+id/centered_element"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_buttons_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/centered_avatar_element"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_gravity="center">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/avatar_frame"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ringImageView" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageView"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar"
+                app:shapeAppearanceOverlay="@style/ringImageView" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="风倾"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="https://github.com/Dramwig"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/middle_display_column"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/centered_element"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:clipToPadding="false"
+            android:paddingLeft="@dimen/button_merge"
+            android:paddingTop="10dp"
+            android:paddingRight="@dimen/button_merge">
+
+            <View
+                android:layout_width="@dimen/button_merge"
+                android:layout_height="match_parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/col1"
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/button_merge"
+                android:layout_weight="1"
+                app:cardCornerRadius="@dimen/button_radius"
+                app:cardElevation="0sp">
+
+                <!-- 白色遮罩 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#80FFFFFF" />
+
+                <Button
+                    android:id="@+id/btn_startGame_common"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@xml/button_selector"
+                    android:padding="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/button_marge"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="$520"
+                        android:textColor="@color/button_text"
+                        android:textSize="@dimen/button_text" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="金币"
+                        android:textColor="@color/button_subtext"
+                        android:textSize="@dimen/button_subtext" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/col2"
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/button_merge"
+                android:layout_weight="1"
+                app:cardCornerRadius="@dimen/button_radius"
+                app:cardElevation="0sp">
+
+                <!-- 白色遮罩 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#00FFFFFF" />
+
+                <Button
+                    android:id="@+id/btn_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@xml/button_selector"
+                    android:padding="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/button_marge"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="@color/button_text"
+                        android:textSize="@dimen/button_text" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="荣誉"
+                        android:textColor="@color/button_subtext"
+                        android:textSize="@dimen/button_subtext" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/col3"
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/button_merge"
+                android:layout_weight="1"
+                app:cardCornerRadius="@dimen/button_radius"
+                app:cardElevation="0sp">
+
+                <!-- 白色遮罩 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#00FFFFFF" />
+
+                <Button
+                    android:id="@+id/btn_startGame_train"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@xml/button_selector"
+                    android:padding="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/button_marge"
+                    android:gravity="left|center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="24"
+                        android:textColor="@color/button_text"
+                        android:textSize="@dimen/button_text" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="记录"
+                        android:textColor="@color/button_subtext"
+                        android:textSize="@dimen/button_subtext" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="@dimen/button_merge"
+            android:paddingRight="@dimen/button_merge">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/avatar_frame"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/ringImageView" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/avatar_frame"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/ringImageView" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/avatar_frame"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/ringImageView" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- 设置 -->
+
+    <RelativeLayout
+        android:id="@+id/set_column"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/middle_display_column"
+        android:layout_marginTop="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingLeft="@dimen/button_merge"
+            android:paddingRight="@dimen/button_merge">
+
+            <View
+                android:layout_width="@dimen/button_merge"
+                android:layout_height="match_parent" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0pt"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_merge"
+                android:layout_marginStart="@dimen/button_merge"
+                android:layout_marginTop="@dimen/button_merge"
+                android:layout_marginEnd="@dimen/button_merge"
+                android:layout_marginBottom="@dimen/button_merge"
+                android:layout_weight="1"
+                app:cardCornerRadius="@dimen/button_radius"
+                app:cardElevation="0sp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/set_container_height"
+                        android:layout_alignParentTop="true">
+
+                        <RelativeLayout
+                            android:id="@+id/set_icon1"
+                            android:layout_width="@dimen/set_container_height"
+                            android:layout_height="@dimen/set_container_height"
+                            android:layout_centerVertical="true">
+
+                            <com.example.a2048.SquareView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/rounded_square2" />
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/avatar"
+                                app:shapeAppearanceOverlay="@style/ringImageView" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toEndOf="@id/set_icon1"
+                            android:gravity="center"
+                            android:paddingLeft="10dp"
+                            android:text="外观 &amp; 音效个性化"
+                            android:textColor="#000000"
+                            android:textSize="12sp" />
+
+
+                        <ImageButton
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:background="@android:color/transparent"
+                            android:rotation="180"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/icon_return" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/set_container_height"
+                        android:layout_alignParentTop="true">
+
+                        <RelativeLayout
+                            android:id="@+id/set_icon2"
+                            android:layout_width="@dimen/set_container_height"
+                            android:layout_height="@dimen/set_container_height"
+                            android:layout_centerVertical="true">
+
+                            <com.example.a2048.SquareView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/rounded_square2" />
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/avatar"
+                                app:shapeAppearanceOverlay="@style/ringImageView" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toEndOf="@id/set_icon2"
+                            android:gravity="center"
+                            android:paddingLeft="10dp"
+                            android:text="外观 &amp; 音效个性化"
+                            android:textColor="#000000"
+                            android:textSize="12sp" />
+
+
+                        <ImageButton
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:background="@android:color/transparent"
+                            android:rotation="180"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/icon_return" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- 底部 -->
+
+    <TextView
+        android:id="@+id/text_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/set_column"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="20dp"
+        android:text="最新消息" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_set"
+        android:layout_marginTop="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingLeft="@dimen/button_merge"
+            android:paddingRight="@dimen/button_merge">
+
+            <View
+                android:layout_width="@dimen/button_merge"
+                android:layout_height="match_parent" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="@dimen/button_merge"
+                android:layout_marginStart="@dimen/button_merge"
+                android:layout_marginTop="@dimen/button_merge"
+                android:layout_marginEnd="@dimen/button_merge"
+                android:layout_marginBottom="@dimen/button_merge"
+                app:cardCornerRadius="@dimen/button_radius"
+                app:cardElevation="0sp"></androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

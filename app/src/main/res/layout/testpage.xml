@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <!-- 背景图片 -->
     <com.example.a2048.SensorImageView
         android:id="@+id/panorama_image_view"
@@ -17,6 +19,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#50FFFFFF" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 元素1 -->
+        <TextView
+            android:id="@+id/element1"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:text="Element 1"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp" />
+
+        <!-- 元素2，中心点位于元素1的右上角 -->
+        <TextView
+            android:id="@+id/element2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/element1"
+            android:layout_alignRight="@id/element1"
+            android:layout_marginTop="-11dp"
+            android:text="Element 2" />
+
+        <!-- 其他元素 -->
+        <!-- ... -->
+
+    </RelativeLayout>
+
+
 
     <LinearLayout
         android:id="@+id/button_select"
