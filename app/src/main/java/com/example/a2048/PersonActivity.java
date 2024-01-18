@@ -78,9 +78,11 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         } else if (id == R.id.btn3){
 
         } else if (id == R.id.rl_set_1){
-
+            intent.setClass(this, PersonalizationActivity.class);//也可以这样写intent.setClass(MainActivity.this, OtherActivity.class);
+            startActivity(intent);
         } else if (id == R.id.rl_set_2){
-
+            intent.setClass(this, SettingsActivity.class);//也可以这样写intent.setClass(MainActivity.this, OtherActivity.class);
+            startActivity(intent);
         } else if (id == R.id.btn1){
 
         }else{

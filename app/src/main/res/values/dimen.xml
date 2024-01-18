@@ -23,4 +23,9 @@
     <dimen name="top_buttons_container_padding">10dp</dimen>
     <dimen name="top_buttons_container_width">45dp</dimen>
 
+    <dimen name="set_container_padding">10dp</dimen>
+    <dimen name="set_container_layout_marginLeft">30dp</dimen>
+    <dimen name="set_container_layout_marginRight">30dp</dimen>
+
+
 </resources>

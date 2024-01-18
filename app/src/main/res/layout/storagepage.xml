@@ -81,6 +81,7 @@
                         android:layout_height="match_parent"
                         android:paddingLeft="@dimen/button_merge"
                         android:paddingRight="@dimen/button_merge"
+                        android:paddingBottom="@dimen/button_merge"
                         android:scrollbars="none">
 
                         <LinearLayout
