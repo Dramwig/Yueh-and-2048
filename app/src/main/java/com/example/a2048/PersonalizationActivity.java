@@ -3,6 +3,7 @@ package com.example.a2048;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,11 +11,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class PersonalizationActivity extends AppCompatActivity {
 
+    private GameView gameView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personalizationpage);
 
+
+        gameView = findViewById(R.id.set_grid_game_view);
+        // 在视图树布局完成后加载数据，不然会崩溃
+        gameView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                gameView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                int[][] grid = {
+                        {0, 2, 4, 8},
+                        {16, 32, 64, 128},
+                        {256, 512, 1024, 2048},
+                        {4096, 8192, 16384, 32768}
+                };
+                gameView.setGameData(grid,0,0);
+            }
+        });
     }
 
     @Override

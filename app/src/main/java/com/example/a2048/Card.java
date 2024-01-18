@@ -8,6 +8,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -66,10 +67,10 @@ public class Card extends FrameLayout {
 
     public Card(@NonNull Context context, int width, boolean isInGame) {
         super(context);
-        zoomRatio = 1f * px2dp((Activity) context,1f*width) / (200 * 160 / 420); // 控制比例
+        zoomRatio = 1f * px2dp((Activity) context, 1f * width) / (200 * 160 / 420); // 控制比例
 
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-        gradientDrawable.setCornerRadius(isInGame?getResources().getDimension(R.dimen.game_card_radius) :getResources().getDimension(R.dimen.button_radius));
+        gradientDrawable.setCornerRadius(isInGame ? getResources().getDimension(R.dimen.game_card_radius) : getResources().getDimension(R.dimen.button_radius));
 
         textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
@@ -90,15 +91,23 @@ public class Card extends FrameLayout {
     }
 
     public void setNum(int num) {
-        this.num = num;
-        //数字改变时，同时改变改变字体大小和颜色
-        updateView();
+        try {
+            this.num = num;
+            //数字改变时，同时改变改变字体大小和颜色
+            updateView();
+        }catch (Exception e) {
+            Toast.makeText(getContext(), "setNum " + num + " 报错", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void updateView() {
-        textView.setText(num + "");
-        changeColor(num);
-        changeSize(num);
+        try {
+            textView.setText(num + "");
+            changeColor(num);
+            changeSize(num);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "updateView " + num + " 报错", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void changeSize(int num) {
@@ -113,7 +122,7 @@ public class Card extends FrameLayout {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, (int) (50 * zoomRatio * 0.9));
         }
     }
-    
+
     private void changeColor(int num) {
 
         if (num > 16) {

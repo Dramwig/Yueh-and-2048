@@ -94,7 +94,7 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
             save_box_grid_game_view[i].getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                    backgroundView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    save_box_grid_game_view[index].getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     loadSaveBox(index);
                 }
             });

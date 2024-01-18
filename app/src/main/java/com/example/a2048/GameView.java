@@ -43,7 +43,7 @@ public class GameView extends GridLayout {
     private SoundPool soundPool;
     private int sound_merge, sound_create, sound_warn;
     private int maxMergeNum;
-    private boolean isInGame = true;
+    public boolean isInGame = true;
     private boolean isTrainingMode = false;
     private Stack<GameData> stack_CardsNum = new Stack<>();
 
@@ -145,6 +145,9 @@ public class GameView extends GridLayout {
                 c = new Card(getContext(), width, isInGame);
                 addView(c, width, height);
                 Cards[i][j] = c;
+                if (Cards[i][j] != null) {
+                    Log.d("Cards", "Cards已经初始化: " + i + " " + j);
+                }
             }
         }
     }
@@ -611,7 +614,16 @@ public class GameView extends GridLayout {
     private void setCardsNum(int[][] cardsNum) {
         for (int i = 0; i < gridSize; ++i) {
             for (int j = 0; j < gridSize; ++j) {
-                Cards[i][j].setNum(cardsNum[i][j]);
+                try {
+                    if (Cards[i][j] == null) {
+                        // 对象尚未初始化，执行初始化操作
+                        Toast.makeText(getContext(), "Cards未初始化！", Toast.LENGTH_SHORT).show();
+                        Log.e("Cards", "Cards未初始化: " + i + " " + j);
+                    }
+                    Cards[i][j].setNum(cardsNum[i][j]);
+                } catch (Exception e) {
+                    Log.e("setNum", "调用setNum()时捕获到异常：" + e.getMessage());
+                }
             }
         }
         if (isGameOver()) {
