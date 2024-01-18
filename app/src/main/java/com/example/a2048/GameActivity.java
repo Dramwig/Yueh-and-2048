@@ -25,8 +25,7 @@ import java.io.InputStream;
 public class GameActivity extends AppCompatActivity {
     private GameView gameView;
     private GameActivity gamePage = this;
-    TextView text_score;
-    TextView text_move;
+    TextView text_score,text_move,text_status;
     private static final int REQUEST_CODE = 1;
 
     @Override
@@ -52,9 +51,16 @@ public class GameActivity extends AppCompatActivity {
 
         text_move = findViewById(R.id.text_move);
         text_score = findViewById(R.id.text_score);
+        text_status = findViewById(R.id.text_status);
 
         gameView = findViewById(R.id.grid_game_view);
-        gameView.setGameActivity(this);
+        //gameView.resetGame(10);
+        // 读取存档数据
+        Intent intent = getIntent();
+        int data1 = intent.getIntExtra("data1", gameView.gridSize); // 使用默认值
+        int data2 = intent.getIntExtra("data2", gameView.addRandomCardNum); // 使用默认值
+        gameView.resetGame(data1);
+        gameView.setAddRandomCardNum(data2);
 
         // 返回按钮
         ImageButton btn_return = findViewById(R.id.button_return);
@@ -105,13 +111,11 @@ public class GameActivity extends AppCompatActivity {
                 gameView.undoToPreviousStatus();
             }
         });
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // 处理返回结果
@@ -128,7 +132,8 @@ public class GameActivity extends AppCompatActivity {
             saveGameData();
             Toast.makeText(GameActivity.this, "已自动保存", Toast.LENGTH_SHORT).show();
         }
-        super.onBackPressed(); // 调用父类的onBackPressed()方法来结束Activity
+        setResult(chosenActivity.RESULT_CLOSE_CHOSEN_ACTIVITY);
+        finish();  // 关闭当前的 GameActivity
     }
 
     public void updateScoreView() {
@@ -138,6 +143,8 @@ public class GameActivity extends AppCompatActivity {
     public void updateMoveView() {
         text_move.setText("" + gameView.getMoveNum());
     }
+
+    public void updatePreviousStatusNum(int num){text_status.setText(""+num);}
 
     public void exchangeMode(boolean isTrainingMode){
         TextView top_text = findViewById(R.id.top_text);

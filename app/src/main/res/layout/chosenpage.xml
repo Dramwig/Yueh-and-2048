@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 背景图片 -->
+    <com.example.a2048.BlurBGImageView
+        android:id="@+id/background_view_to_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg1" />
+
+    <!-- 白色遮罩 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50FFFFFF" />
+
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:padding="@dimen/game_page_padding">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/button_merge"
+            android:paddingRight="@dimen/button_merge">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/button_radius"
+                app:cardElevation="0sp">
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="-2dp"
+                        android:layout_marginEnd="0dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="创意工坊"
+                            android:textColor="#000000"
+                            android:textSize="30sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="开放部分选项"
+                            android:textColor="@color/button_subtext"
+                            android:textSize="10sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#DADADA" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/set_container_layout_height"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/set_container_padding">
+
+                            <TextView
+                                android:id="@+id/settext1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/set_container_layout_marginLeft"
+                                android:layout_weight="0.6"
+                                android:gravity="left"
+                                android:text="行列数" />
+
+                            <SeekBar
+                                android:id="@+id/seekBar1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:min="3"
+                                android:max="10"
+                                android:progress="4" />
+
+                            <EditText
+                                android:id="@+id/editTextProgress1"
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:background="@color/game_box_background_grey"
+                                android:layout_marginEnd="@dimen/set_container_layout_marginRight"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="4" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/set_container_layout_height"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/set_container_padding">
+
+                            <TextView
+                                android:id="@+id/settext2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/set_container_layout_marginLeft"
+                                android:layout_weight="0.6"
+                                android:gravity="left"
+                                android:text="方块生成数" />
+
+                            <SeekBar
+                                android:id="@+id/seekBar2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:min="1"
+                                android:max="5"
+                                android:progress="1" />
+
+                            <EditText
+                                android:id="@+id/editTextProgress2"
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:background="@color/game_box_background_grey"
+                                android:layout_marginEnd="@dimen/set_container_layout_marginRight"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/set_container_layout_height"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/set_container_padding">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/set_container_layout_marginLeft"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:text="选项" />
+
+                            <Switch
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/set_container_layout_marginRight"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="" />
+
+                        </LinearLayout>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#DADADA" />
+
+                        <LinearLayout
+                            android:id="@+id/bottom_buttons_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/button_text_height"
+                            android:layout_alignParentBottom="true"
+                            android:paddingLeft="@dimen/button_merge"
+                            android:paddingRight="@dimen/button_merge">
+
+
+                            <RelativeLayout
+                                android:id="@+id/bnt_text_no"
+                                android:layout_width="0pt"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/button_merge"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/text_no"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/button_merge"
+                                    android:layout_marginTop="@dimen/button_merge"
+                                    android:layout_marginEnd="@dimen/button_merge"
+                                    android:layout_marginBottom="@dimen/button_merge"
+                                    android:gravity="bottom|center"
+                                    android:text="退出"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/button_text" />
+
+                                <View
+                                    android:layout_width="20dp"
+                                    android:layout_height="5dp"
+                                    android:layout_alignBottom="@id/text_no"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="-8dp"
+                                    android:background="@drawable/rounded_line_no" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/bnt_text_yes"
+                                android:layout_width="0pt"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/button_merge"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/text_yes"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/button_merge"
+                                    android:gravity="bottom|center"
+                                    android:text="确定"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/button_text" />
+
+                                <View
+                                    android:layout_width="20dp"
+                                    android:layout_height="5dp"
+                                    android:layout_alignBottom="@id/text_yes"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="-8dp"
+                                    android:background="@drawable/rounded_line_yes" />
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="100dp" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -7,16 +7,16 @@ import java.util.Locale;
 
 class GameData implements Serializable {
     public int[][] array;
-    public int GameScore;
-    public int MoveNum;
-    public int num3;
+    public int gameScore;
+    public int moveNum;
+    public int gridSize;
     public long createdTime;
 
     public GameData(int[][] array, int num1, int num2, int num3) {
         this.array = array;
-        this.GameScore = num1;
-        this.MoveNum = num2;
-        this.num3 = num3;
+        this.gameScore = num1;
+        this.moveNum = num2;
+        this.gridSize = num3;
         this.createdTime = System.currentTimeMillis();
     }
 
@@ -25,11 +25,15 @@ class GameData implements Serializable {
     }
 
     public int getGameScore() {
-        return GameScore;
+        return gameScore;
     }
 
     public int getMoveNum() {
-        return MoveNum;
+        return moveNum;
+    }
+
+    public int getGridSize() {
+        return gridSize;
     }
 
     public String getCreatedTimeAsString() {

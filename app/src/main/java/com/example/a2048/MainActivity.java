@@ -98,7 +98,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             intent.setClass(this, GameActivity.class);//也可以这样写intent.setClass(MainActivity.this, OtherActivity.class);
             startActivity(intent);
         } else if (id == R.id.btn_startGame_train) {
-
+            intent.setClass(this, chosenActivity.class);//也可以这样写intent.setClass(MainActivity.this, OtherActivity.class);
+            startActivity(intent);
         } else if (id == R.id.imageView){
             intent.setClass(this, PersonActivity.class);//也可以这样写intent.setClass(MainActivity.this, OtherActivity.class);
             startActivity(intent);

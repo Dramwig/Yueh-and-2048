@@ -25,27 +25,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Stack;
 
 public class GameView extends GridLayout {
-    private static final int DEFAULT_GRID_SIZE = 4;
     private Card[][] Cards;
     private final Random random = new Random();
-    private int gridSize;
-    private int cardWidth;
+    protected int gridSize = 4, cardWidth, addRandomCardNum = 1;
     private List<Animator> newAnimatorList = new ArrayList<>();
-    private int moveTime = getResources().getInteger(R.integer.moveTime);
-    private int mergeTime = getResources().getInteger(R.integer.mergeTime);
-    private int createTime = getResources().getInteger(R.integer.createTime);
-    private int gameScore = 0;
-    private int moveNum = 0;
+    private int moveTime = getResources().getInteger(R.integer.moveTime), mergeTime = getResources().getInteger(R.integer.mergeTime), createTime = getResources().getInteger(R.integer.createTime);
+    private int gameScore = 0, moveNum = 0;
     private GameActivity gameActivity;
     private SoundPool soundPool;
     private int sound_merge, sound_create, sound_warn;
     private int maxMergeNum;
-    private boolean isInGame = true;
+    public boolean isInGame = true;
     private boolean isTrainingMode = false;
-    private Stack<GameData> stack_CardsNum = new Stack<>();
+    private LimitedSizeStack<GameData> stack_CardsNum = new LimitedSizeStack<>();
 
     public void setGameActivity(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
@@ -53,36 +47,30 @@ public class GameView extends GridLayout {
 
     public GameView(Context context) {
         super(context);
-        gridSize = DEFAULT_GRID_SIZE;
         Cards = new Card[gridSize][gridSize];
         initGame(context);
     }
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        gridSize = DEFAULT_GRID_SIZE;
         Cards = new Card[gridSize][gridSize];
         initGame(context);
     }
 
     public GameView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        gridSize = DEFAULT_GRID_SIZE;
         Cards = new Card[gridSize][gridSize];
         initGame(context);
     }
 
     public void initGame(Context context) {
-
         try {
             gameActivity = (GameActivity) context;
         } catch (Exception e) {
             isInGame = false;
         }
-
-        // 初始化组件
+        // 设置列数
         setColumnCount(gridSize);
-
         // 初始化所有方块
         View view = this;
         final int[] width = new int[1];
@@ -97,21 +85,17 @@ public class GameView extends GridLayout {
                         viewTreeObserver.removeOnGlobalLayoutListener(this);
                     }
                     cardWidth = width[0] / gridSize;
-                    Log.d("cardWidth", "cardWidth: " + cardWidth);
-                    addCards(context, cardWidth, cardWidth);
-                    if (isInGame) {
-                        addRandomCard();
-                        addRandomCard();
-                    }
+                    // Log.d("cardWidth", "cardWidth: " + cardWidth);
+                    addCards(cardWidth, cardWidth);
+                    if (isInGame)
+                        addRandomCard(addRandomCardNum + 1);
                 }
             }
         });
 
-
         if (isInGame) {
             // 设置滑动触发器
             setListener();
-
             // 初始化音乐音效
             AudioAttributes attr = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME) // 设置音效使用场景
                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build(); // 设置音效的类型
@@ -124,6 +108,19 @@ public class GameView extends GridLayout {
         }
     }
 
+    public void resetGame(int gridSize) {
+        this.gridSize = gridSize;
+        setColumnCount(gridSize);
+        Cards = new Card[gridSize][gridSize];
+        removeAllViews(); //清除GridLayout原有元素
+        // 初始化所有方块
+        View view = this;
+        int width = view.getWidth();
+        cardWidth = width / gridSize;
+        // Log.d("cardWidth", "cardWidth: " + cardWidth);
+        addCards(cardWidth, cardWidth);
+    }
+
     public void restartGame() {
         saveCurrentState();
         for (int i = 0; i < gridSize; ++i) {
@@ -133,20 +130,8 @@ public class GameView extends GridLayout {
         }
         setGameScore(0);
         setMoveNum(0);
-        addRandomCard();
-        addRandomCard();
+        addRandomCard(addRandomCardNum + 1);
         setOutTrainingMode();
-    }
-
-    private void addCards(Context context, int width, int height) {
-        Card c;
-        for (int i = 0; i < gridSize; ++i) {
-            for (int j = 0; j < gridSize; ++j) {
-                c = new Card(getContext(), width, isInGame);
-                addView(c, width, height);
-                Cards[i][j] = c;
-            }
-        }
     }
 
     private void addCards(int width, int height) {
@@ -156,6 +141,9 @@ public class GameView extends GridLayout {
                 c = new Card(getContext(), width, isInGame);
                 addView(c, width, height);
                 Cards[i][j] = c;
+                if (Cards[i][j] != null) {
+                    Log.d("Cards", "Cards已经初始化: " + i + " " + j);
+                }
             }
         }
     }
@@ -225,7 +213,7 @@ public class GameView extends GridLayout {
                                     // 执行后续代码
                                     addMoveNum();
                                     playSound(sound_create, 1);
-                                    addRandomCard();
+                                    addRandomCard(addRandomCardNum);
                                     if (isGameOver()) {
                                         gameOver();
                                     }
@@ -410,12 +398,24 @@ public class GameView extends GridLayout {
                 }
             }
         }
-        int pos = emptyPositions.get(random.nextInt(emptyPositions.size()));
-        int row = pos / gridSize;
-        int col = pos % gridSize;
-        int val = random.nextInt(10) == 0 ? 4 : 2;
-        Cards[row][col].setNum(val);
-        playCreateAnimation(row, col);
+        if (emptyPositions.size() > 0) {
+            int pos = emptyPositions.get(random.nextInt(emptyPositions.size()));
+            int row = pos / gridSize;
+            int col = pos % gridSize;
+            int val = random.nextInt(10) == 0 ? 4 : 2;
+            Cards[row][col].setNum(val);
+            playCreateAnimation(row, col);
+        }
+    }
+
+    private void addRandomCard(int num) {
+        while ((num--) != 0) {
+            addRandomCard();
+        }
+    }
+
+    public void setAddRandomCardNum(int num) {
+        addRandomCardNum = num;
     }
 
     private void playCreateAnimation(int r, int c) {
@@ -554,10 +554,7 @@ public class GameView extends GridLayout {
         if (row < gridSize - 1 && Cards[row + 1][col].getNum() == CardValue) {
             return true;
         }
-        if (col < gridSize - 1 && Cards[row][col + 1].getNum() == CardValue) {
-            return true;
-        }
-        return false;
+        return col < gridSize - 1 && Cards[row][col + 1].getNum() == CardValue;
     }
 
     private void gameOver() {
@@ -600,6 +597,11 @@ public class GameView extends GridLayout {
         return moveNum;
     }
 
+    public void updatePreviousStatusNum() {
+        if (isInGame)
+            gameActivity.updatePreviousStatusNum(stack_CardsNum.size());
+    }
+
     public int[][] getCardsNum() {
         int[][] CardsNum = new int[gridSize][gridSize];
         for (int col = 0; col < gridSize; col++)
@@ -611,7 +613,16 @@ public class GameView extends GridLayout {
     private void setCardsNum(int[][] cardsNum) {
         for (int i = 0; i < gridSize; ++i) {
             for (int j = 0; j < gridSize; ++j) {
-                Cards[i][j].setNum(cardsNum[i][j]);
+                try {
+                    if (Cards[i][j] == null) {
+                        // 对象尚未初始化，执行初始化操作
+                        Toast.makeText(getContext(), "Cards未初始化！", Toast.LENGTH_SHORT).show();
+                        Log.e("Cards", "Cards未初始化: " + i + " " + j);
+                    }
+                    Cards[i][j].setNum(cardsNum[i][j]);
+                } catch (Exception e) {
+                    Log.e("setNum", "调用setNum()时捕获到异常：" + e.getMessage());
+                }
             }
         }
         if (isGameOver()) {
@@ -644,12 +655,16 @@ public class GameView extends GridLayout {
         int[][] cardsNum = gameData.getArray();
         gameScore = gameData.getGameScore();
         moveNum = gameData.getMoveNum();
+        if (gameData.getGridSize() > 0 && gameData.getGridSize() != gridSize) {
+            gridSize = gameData.getGridSize();
+            resetGame(gridSize);
+        }
         setGameData(cardsNum, gameScore, moveNum);
     }
 
     public GameData getGameData() {
         int[][] array = getCardsNum();
-        GameData data = new GameData(array, gameScore, moveNum, 0);
+        GameData data = new GameData(array, gameScore, moveNum, gridSize);
         return data;
     }
 
@@ -657,31 +672,34 @@ public class GameView extends GridLayout {
         // 得到Data对象并将其压入栈中
         GameData data = getGameData();
         stack_CardsNum.push(data);
+        updatePreviousStatusNum();
     }
 
     public void undoToPreviousStatus() {
         if (!stack_CardsNum.isEmpty()) {
             // 从栈中取出上一个状态的数据对象
             GameData previousData = stack_CardsNum.pop();
+            updatePreviousStatusNum();
             setGameData(previousData);
             setAsTrainingMode();
+            updatePreviousStatusNum();
         } else {
             playSound(sound_warn, 3);
         }
     }
 
     public void setAsTrainingMode() {
-        if (isTrainingMode == false && isInGame) {
+        if (!isTrainingMode && isInGame) {
             isTrainingMode = true;
-            gameActivity.exchangeMode(isTrainingMode);
+            gameActivity.exchangeMode(true);
             Toast.makeText(getContext(), "已切换为训练模式", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void setOutTrainingMode() {
-        if (isTrainingMode == true && isInGame) {
+        if (isTrainingMode && isInGame) {
             isTrainingMode = false;
-            gameActivity.exchangeMode(isTrainingMode);
+            gameActivity.exchangeMode(false);
             Toast.makeText(getContext(), "已切换为常规模式", Toast.LENGTH_SHORT).show();
         }
     }

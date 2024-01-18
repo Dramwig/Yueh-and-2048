@@ -94,7 +94,7 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
             save_box_grid_game_view[i].getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                    backgroundView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    save_box_grid_game_view[index].getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     loadSaveBox(index);
                 }
             });
@@ -153,10 +153,17 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void loadSaveBox(int index, GameData gameData) {
-        save_box_grid_game_view[index].setGameData(gameData);
-        save_box_text_score[index].setText("得分：" + gameData.getGameScore());
-        save_box_text_move_times[index].setText("滑动次数：" + gameData.getMoveNum());
-        save_box_text_save_time[index].setText(gameData.getCreatedTimeAsString());
+        try {
+            save_box_grid_game_view[index].setGameData(gameData);
+            save_box_text_score[index].setText("得分：" + gameData.getGameScore());
+            save_box_text_move_times[index].setText("滑动次数：" + gameData.getMoveNum());
+            save_box_text_save_time[index].setText(gameData.getCreatedTimeAsString());
+        }catch (Exception e){
+            e.printStackTrace();
+            save_box_text_save_time[index].setText(e.getMessage());
+            saveGameData(index, null);
+            System.out.println(index+"号存档覆盖为空：读出错误");
+        }
     }
 
     public void saveGameData(int index, GameData gameData) {

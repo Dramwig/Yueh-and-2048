@@ -51,6 +51,26 @@
             android:textColor="#000000"
             android:textSize="12sp" />
 
+        <TextView
+            android:id="@+id/text_intervals"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/text_move"
+            android:gravity="center"
+            android:text=" - "
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/text_status"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/text_intervals"
+            android:gravity="center"
+            android:text="@string/_0"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
         <!-- 排名按钮 -->
         <ImageButton
             android:id="@+id/button_rank"

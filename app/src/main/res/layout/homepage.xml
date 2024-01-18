@@ -195,14 +195,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="训练场"
+                        android:text="创意工坊"
                         android:textColor="@color/button_text"
                         android:textSize="@dimen/button_text" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="暂未开放"
+                        android:text="开放更多自定义玩法！"
                         android:textColor="@color/button_subtext"
                         android:textSize="@dimen/button_subtext" />
 
