@@ -1,5 +1,6 @@
 package com.example.a2048;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -95,6 +96,7 @@ public class chosenActivity extends AppCompatActivity implements View.OnClickLis
                     // 在文本变化时执行的操作
                 }
 
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void afterTextChanged(Editable editable) {
                     // 在文本变化后执行的操作
@@ -120,8 +122,12 @@ public class chosenActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
+                        textView[finalI].setText(string[finalI] + " ⚠");
+                        textView[finalI].setTextColor(Color.RED);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        textView[finalI].setText(string[finalI] + " ⚠");
+                        textView[finalI].setTextColor(Color.RED);
                     }
                 }
             });
