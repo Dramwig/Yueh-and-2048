@@ -9,6 +9,6 @@
     <stroke android:width="@dimen/game_box_frame" android:color="@color/game_box_frame"></stroke>
 
     <!-- 矩形的圆角半径 -->
-    <corners android:radius="@dimen/game_box_radius"/>
-
+<!--    <corners android:radius="@dimen/game_box_radius"/>-->
+    <corners android:radius="100px"/>
 </shape>

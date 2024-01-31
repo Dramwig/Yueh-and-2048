@@ -21,6 +21,8 @@ public class Card extends FrameLayout {
 
     private int num;
 
+    private float cardRadius;
+
     static Map<Integer, Integer> backgroundColorIdMap = new HashMap<>();
     static Map<Integer, Integer> textColorIdMap = new HashMap<>();
 
@@ -71,7 +73,8 @@ public class Card extends FrameLayout {
 
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
         //gradientDrawable.setCornerRadius(isInGame ? getResources().getDimension(R.dimen.game_card_radius) : getResources().getDimension(R.dimen.button_radius));
-        gradientDrawable.setCornerRadius(getResources().getDimension(R.dimen.game_card_radius) * zoomRatio);
+        cardRadius = getResources().getDimension(R.dimen.game_card_radius) * zoomRatio;
+        gradientDrawable.setCornerRadius(cardRadius);
 
         textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
@@ -85,6 +88,10 @@ public class Card extends FrameLayout {
         //lp.setMargins(10, 10, 10, 10);
 
         addView(textView, lp);
+    }
+
+    public float getCornerRadius(){
+        return cardRadius;
     }
 
     public int getNum() {
@@ -154,6 +161,18 @@ public class Card extends FrameLayout {
         int dpValue = Math.round(pxValue * 160 / dpi);
         // 返回dp值
         return dpValue;
+    }
+    public static int dp2px(Activity activity, float dpValue) {
+        // 获取DisplayMetrics对象
+        DisplayMetrics dm = new DisplayMetrics();
+        // 从activity中获取当前屏幕的信息
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        // 获取当前屏幕的密度
+        float density = dm.density;
+        // 根据换算公式计算px值，并四舍五入取整
+        int pxValue = Math.round(dpValue * density);
+        // 返回px值
+        return pxValue;
     }
 
 }

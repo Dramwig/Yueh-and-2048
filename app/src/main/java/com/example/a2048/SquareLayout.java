@@ -2,18 +2,19 @@ package com.example.a2048;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
+import android.widget.FrameLayout;
 
-public class SquareView extends View {
-    public SquareView(Context context) {
+public class SquareLayout extends FrameLayout {
+
+    public SquareLayout(Context context) {
         super(context);
     }
 
-    public SquareView(Context context, AttributeSet attrs) {
+    public SquareLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SquareLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -21,12 +22,15 @@ public class SquareView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        // 让宽和高为小的那个值
+
+        // Let width and height be the smaller of the two
         if (widthMode == MeasureSpec.EXACTLY || heightMode == MeasureSpec.EXACTLY) {
             int width = widthMode == MeasureSpec.EXACTLY ? MeasureSpec.getSize(widthMeasureSpec) : MeasureSpec.getSize(heightMeasureSpec);
-            int height = heightMode == MeasureSpec.EXACTLY ? MeasureSpec.getSize(heightMeasureSpec) : MeasureSpec.getSize(widthMeasureSpec) ;
+            int height = heightMode == MeasureSpec.EXACTLY ? MeasureSpec.getSize(heightMeasureSpec) : MeasureSpec.getSize(widthMeasureSpec);
             height = width = Math.min(width, height);
             setMeasuredDimension(width, height);
+            // Measure children to ensure they fill the view
+            measureChildren(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }

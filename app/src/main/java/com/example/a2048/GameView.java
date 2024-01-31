@@ -675,6 +675,17 @@ public class GameView extends GridLayout {
         updatePreviousStatusNum();
     }
 
+    public float getCardCornerRadius(){
+        try {
+            Toast.makeText(getContext(), "getCardCornerRadius返回："+Cards[0][0].getCornerRadius(), Toast.LENGTH_SHORT).show();
+            return Cards[0][0].getCornerRadius();
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(getContext(), "getCardCornerRadius错误！", Toast.LENGTH_SHORT).show();
+        }
+        return 0;
+    }
+
     public void undoToPreviousStatus() {
         if (!stack_CardsNum.isEmpty()) {
             // 从栈中取出上一个状态的数据对象

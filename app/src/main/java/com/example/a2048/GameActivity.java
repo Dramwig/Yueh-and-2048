@@ -27,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     private GameActivity gamePage = this;
     TextView text_score,text_move,text_status;
     private static final int REQUEST_CODE = 1;
+    com.example.a2048.RectangularBorderLayout rectangularBorderLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,12 @@ public class GameActivity extends AppCompatActivity {
         int data2 = intent.getIntExtra("data2", gameView.addRandomCardNum); // 使用默认值
         gameView.resetGame(data1);
         gameView.setAddRandomCardNum(data2);
+
+        rectangularBorderLayout= findViewById(R.id.border_game_view);
+        //rectangularBorderLayout.setCornerRadius(gameView.getCardCornerRadius() + (int) this.getResources().getDimension(R.dimen.game_box_frame));
+        //rectangularBorderLayout.setCornerRadius(45);
+        //rectangularBorderLayout.setCornerRadius(Card.px2dp(this,90));
+        //Toast.makeText(this, ""+this.getResources().getDimension(R.dimen.game_box_frame), Toast.LENGTH_SHORT).show();
 
         // 返回按钮
         ImageButton btn_return = findViewById(R.id.button_return);

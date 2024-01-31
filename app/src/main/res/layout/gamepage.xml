@@ -147,26 +147,28 @@
 
         </LinearLayout>
 
-        <com.example.a2048.GameView
-            android:id="@+id/grid_game_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignLeft="@id/view_game_box"
-            android:layout_alignTop="@id/view_game_box"
-            android:layout_alignRight="@id/view_game_box"
-            android:layout_alignBottom="@id/view_game_box"
-            android:layout_marginStart="@dimen/game_box_frame"
-            android:layout_marginTop="@dimen/game_box_frame"
-            android:layout_marginEnd="@dimen/game_box_frame"
-            android:layout_marginBottom="@dimen/game_box_frame"
-            android:useDefaultMargins="false" />
 
-        <com.example.a2048.SquareView
+        <com.example.a2048.SquareLayout
             android:id="@+id/view_game_box"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/rounded_square" />
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true">
+
+            <com.example.a2048.RectangularBorderLayout
+                android:id="@+id/border_game_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:useDefaultMargins="false">
+
+                <com.example.a2048.GameView
+                    android:id="@+id/grid_game_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:useDefaultMargins="false" />
+
+            </com.example.a2048.RectangularBorderLayout>
+
+        </com.example.a2048.SquareLayout>
 
 
     </RelativeLayout>
