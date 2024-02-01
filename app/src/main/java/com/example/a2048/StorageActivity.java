@@ -28,7 +28,9 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StorageActivity extends AppCompatActivity implements View.OnClickListener {
+public class StorageActivity extends AppCompatActivity implements View.OnClickListener, CornerRadiusUpdater{
+
+    public void updateCornerRadius(float radius){};
 
     private static final int SAVE_BOX_NUM = 6;
     private final TextView[] save_box_text_score = new TextView[SAVE_BOX_NUM];

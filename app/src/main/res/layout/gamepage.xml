@@ -154,19 +154,25 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true">
 
-            <com.example.a2048.RectangularBorderLayout
-                android:id="@+id/border_game_view"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:useDefaultMargins="false">
+                android:layout_height="match_parent">
 
-                <com.example.a2048.GameView
-                    android:id="@+id/grid_game_view"
+                <com.example.a2048.RectangularBorderLayout
+                    android:id="@+id/border_game_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:useDefaultMargins="false" />
+                    android:useDefaultMargins="false">
 
-            </com.example.a2048.RectangularBorderLayout>
+                    <com.example.a2048.GameView
+                        android:id="@+id/grid_game_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:useDefaultMargins="false" />
+
+                </com.example.a2048.RectangularBorderLayout>
+
+            </RelativeLayout>
 
         </com.example.a2048.SquareLayout>
 

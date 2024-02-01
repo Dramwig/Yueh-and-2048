@@ -9,15 +9,16 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class PersonalizationActivity extends AppCompatActivity {
+public class PersonalizationActivity extends AppCompatActivity implements CornerRadiusUpdater{
 
     private GameView gameView;
+    private RectangularBorderLayout rectangularBorderLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personalizationpage);
-
+        rectangularBorderLayout = findViewById(R.id.border_game_view);
 
         gameView = findViewById(R.id.grid_game_view);
         // 在视图树布局完成后加载数据，不然会崩溃
@@ -31,9 +32,13 @@ public class PersonalizationActivity extends AppCompatActivity {
                         {256, 512, 1024, 2048},
                         {4096, 8192, 16384, 32768}
                 };
-                gameView.setGameData(grid,0,0);
+                gameView.setGameData(grid, 0, 0);
             }
         });
+    }
+
+    public void updateCornerRadius(float radius) {
+        rectangularBorderLayout.setInsideCornerRadius(radius);
     }
 
     @Override

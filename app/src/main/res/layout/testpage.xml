@@ -147,17 +147,14 @@
 
         </LinearLayout>
 
+
         <com.example.a2048.SquareLayout
             android:id="@+id/view_game_box"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true">
 
-            <com.example.a2048.RectangularBorderLayout
-                android:id="@+id/border_game_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:useDefaultMargins="false">
+
 
                 <com.example.a2048.GameView
                     android:id="@+id/grid_game_view"
@@ -165,7 +162,7 @@
                     android:layout_height="match_parent"
                     android:useDefaultMargins="false" />
 
-            </com.example.a2048.RectangularBorderLayout>
+
 
         </com.example.a2048.SquareLayout>
 

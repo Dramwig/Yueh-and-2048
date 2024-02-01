@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.FrameLayout;
@@ -45,7 +46,7 @@ public class Card extends FrameLayout {
     }
 
     private GradientDrawable gradientDrawable = new GradientDrawable();
-    private float zoomRatio = 1;
+    protected float zoomRatio = 1;
 
     public Card(@NonNull Context context) {
         super(context);
@@ -63,13 +64,12 @@ public class Card extends FrameLayout {
 
         LayoutParams lp = new LayoutParams(-1, -1);
         //lp.setMargins(10, 10, 10, 10);
-
         addView(textView, lp);
     }
 
     public Card(@NonNull Context context, int width, boolean isInGame) {
         super(context);
-        zoomRatio = getZoomRatio(context,width); // 控制比例
+        zoomRatio = getZoomRatio(context, width); // 控制比例
 
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
         //gradientDrawable.setCornerRadius(isInGame ? getResources().getDimension(R.dimen.game_card_radius) : getResources().getDimension(R.dimen.button_radius));
@@ -86,12 +86,9 @@ public class Card extends FrameLayout {
 
         LayoutParams lp = new LayoutParams(-1, -1);
         //lp.setMargins(10, 10, 10, 10);
-
         addView(textView, lp);
-    }
 
-    public float getCornerRadius(){
-        return cardRadius;
+        updateZoomRatio(zoomRatio);
     }
 
     public int getNum() {
@@ -103,13 +100,27 @@ public class Card extends FrameLayout {
             this.num = num;
             //数字改变时，同时改变改变字体大小和颜色
             updateView();
-        }catch (Exception e) {
+        } catch (Exception e) {
             Toast.makeText(getContext(), "setNum " + num + " 报错", Toast.LENGTH_SHORT).show();
         }
     }
 
+    public void updateZoomRatio(float newZoomRatio) {
+        zoomRatio = newZoomRatio;
+        updateView();
+        Activity activity = (Activity) getContext();
+        if (activity instanceof CornerRadiusUpdater) {
+            ((CornerRadiusUpdater) activity).updateCornerRadius(cardRadius);
+        } else {
+            Toast.makeText(getContext(), "updateCornerRadius没找到对应Context", Toast.LENGTH_SHORT).show();
+        }
+        Log.d("RectangularBorderLayout", "Update card radius: " + cardRadius + " zoomRatio: " + zoomRatio);
+    }
+
     public void updateView() {
         try {
+            cardRadius = getResources().getDimension(R.dimen.game_card_radius) * zoomRatio;
+            gradientDrawable.setCornerRadius(cardRadius);
             textView.setText(num + "");
             changeColor(num);
             changeSize(num);
@@ -158,10 +169,10 @@ public class Card extends FrameLayout {
         // 获取当前屏幕的dpi
         int dpi = dm.densityDpi;
         // 根据换算公式计算dp值，并四舍五入取整
-        int dpValue = Math.round(pxValue * 160 / dpi);
         // 返回dp值
-        return dpValue;
+        return Math.round(pxValue * 160 / dpi);
     }
+
     public static int dp2px(Activity activity, float dpValue) {
         // 获取DisplayMetrics对象
         DisplayMetrics dm = new DisplayMetrics();
@@ -170,12 +181,12 @@ public class Card extends FrameLayout {
         // 获取当前屏幕的密度
         float density = dm.density;
         // 根据换算公式计算px值，并四舍五入取整
-        int pxValue = Math.round(dpValue * density);
         // 返回px值
-        return pxValue;
+        return Math.round(dpValue * density);
     }
-    public static float getZoomRatio(Context context, int width){
-        return 1f * px2dp((Activity) context, 1f * width) / (200 * 160 / 420); // 控制比例
+
+    public static float getZoomRatio(Context context, int width) {
+        return px2dp((Activity) context, width) / (200 * 160 / 420); // 控制比例
     }
 
 }

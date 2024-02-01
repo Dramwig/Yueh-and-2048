@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -22,10 +23,10 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements CornerRadiusUpdater {
     private GameView gameView;
     private GameActivity gamePage = this;
-    TextView text_score,text_move,text_status;
+    TextView text_score, text_move, text_status;
     private static final int REQUEST_CODE = 1;
     com.example.a2048.RectangularBorderLayout rectangularBorderLayout;
 
@@ -54,20 +55,31 @@ public class GameActivity extends AppCompatActivity {
         text_score = findViewById(R.id.text_score);
         text_status = findViewById(R.id.text_status);
 
+        rectangularBorderLayout = findViewById(R.id.border_game_view);
         gameView = findViewById(R.id.grid_game_view);
-        //gameView.resetGame(10);
-        // 读取存档数据
+        View view = gameView;
+        final ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int width = view.getWidth();
+                int gridSize = gameView.gridSize; // Assuming gridSize is a property of gameView
+                int newWidth = (int) width / gridSize * gridSize;
+                int delWith = width-newWidth;
+                Log.d("RectangularBorderLayout", "width=" + width + ", newWidth=" + newWidth);
+                if(delWith!=0) {
+                    rectangularBorderLayout.setMargins(delWith / 2, delWith / 2, delWith - delWith / 2, delWith - delWith / 2);
+                }
+            }
+        });
+
+
+        // 【个性化界面】读取存档数据展示
         Intent intent = getIntent();
         int data1 = intent.getIntExtra("data1", gameView.gridSize); // 使用默认值
         int data2 = intent.getIntExtra("data2", gameView.addRandomCardNum); // 使用默认值
         gameView.resetGame(data1);
         gameView.setAddRandomCardNum(data2);
-
-        rectangularBorderLayout= findViewById(R.id.border_game_view);
-        //rectangularBorderLayout.setCornerRadius(gameView.getCardCornerRadius() + (int) this.getResources().getDimension(R.dimen.game_box_frame));
-        //rectangularBorderLayout.setCornerRadius(45);
-        //rectangularBorderLayout.setCornerRadius(Card.px2dp(this,90));
-        //Toast.makeText(this, ""+this.getResources().getDimension(R.dimen.game_box_frame), Toast.LENGTH_SHORT).show();
 
         // 返回按钮
         ImageButton btn_return = findViewById(R.id.button_return);
@@ -135,7 +147,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(gameView.getMoveNum()>0){
+        if (gameView.getMoveNum() > 0) {
             saveGameData();
             Toast.makeText(GameActivity.this, "已自动保存", Toast.LENGTH_SHORT).show();
         }
@@ -151,11 +163,19 @@ public class GameActivity extends AppCompatActivity {
         text_move.setText("" + gameView.getMoveNum());
     }
 
-    public void updatePreviousStatusNum(int num){text_status.setText(""+num);}
+    public void updatePreviousStatusNum(int num) {
+        text_status.setText("" + num);
+    }
 
-    public void exchangeMode(boolean isTrainingMode){
+    public void updateCornerRadius(float radius) {
+        if (rectangularBorderLayout == null)
+            rectangularBorderLayout = findViewById(R.id.border_game_view);
+        rectangularBorderLayout.setInsideCornerRadius(radius);
+    }
+
+    public void exchangeMode(boolean isTrainingMode) {
         TextView top_text = findViewById(R.id.top_text);
-        top_text.setText(isTrainingMode?"得分 (训练)":"得分");
+        top_text.setText(isTrainingMode ? "得分 (训练)" : "得分");
     }
 
     public void saveGameData() {

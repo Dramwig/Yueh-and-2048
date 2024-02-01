@@ -81,10 +81,15 @@ public class GameView extends GridLayout {
                 if (width[0] == 0) {
                     width[0] = view.getWidth();
                     cardWidth = width[0] / gridSize;
-                    // Log.d("cardWidth", "cardWidth: " + cardWidth);
+                    Log.d("cardWidth", "cardWidth: " + cardWidth);
                     addCards(cardWidth, cardWidth);
                     if (isInGame)
                         addRandomCard(addRandomCardNum + 1);
+                } else if(width[0] != view.getWidth()){
+                    width[0] = view.getWidth();
+                    cardWidth = width[0] / gridSize;
+                    Log.d("cardWidth", "cardWidth: " + cardWidth);
+                    adjustCardDimensions(cardWidth, cardWidth);
                 }
             }
         });
@@ -129,6 +134,25 @@ public class GameView extends GridLayout {
         addRandomCard(addRandomCardNum + 1);
         setOutTrainingMode();
     }
+
+    private void adjustCardDimensions(int newWidth, int newHeight) {
+        for (int i = 0; i < gridSize; ++i) {
+            for (int j = 0; j < gridSize; ++j) {
+                Card card = Cards[i][j];
+                if (card != null) {
+                    // Adjust the width and height of the existing Card view
+                    LayoutParams layoutParams = (LayoutParams) card.getLayoutParams();
+                    layoutParams.width = newWidth;
+                    layoutParams.height = newHeight;
+                    card.setLayoutParams(layoutParams);
+
+                    // Optionally, you can request a layout pass to reflect the changes
+                    card.requestLayout();
+                }
+            }
+        }
+    }
+
 
     private void addCards(int width, int height) {
         Card c;
@@ -669,17 +693,6 @@ public class GameView extends GridLayout {
         GameData data = getGameData();
         stack_CardsNum.push(data);
         updatePreviousStatusNum();
-    }
-
-    public float getCardCornerRadius(){
-        try {
-            Toast.makeText(getContext(), "getCardCornerRadius返回："+Cards[0][0].getCornerRadius(), Toast.LENGTH_SHORT).show();
-            return Cards[0][0].getCornerRadius();
-        }catch (Exception e){
-            e.printStackTrace();
-            Toast.makeText(getContext(), "getCardCornerRadius错误！", Toast.LENGTH_SHORT).show();
-        }
-        return 0;
     }
 
     public void undoToPreviousStatus() {
