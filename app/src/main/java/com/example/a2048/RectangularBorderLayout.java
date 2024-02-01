@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 
 public class RectangularBorderLayout extends RelativeLayout {
 
-    private int backgroundColor, frameWidth, frameColor, DEFAULT_FrameWidth;
+    private int backgroundColor, frameWidth, frameColor, DEFAULT_FrameWidth, layoutMargin;
     private float cornerRadius;
     private GradientDrawable gradientDrawable;
 
@@ -71,6 +71,7 @@ public class RectangularBorderLayout extends RelativeLayout {
                 if (width[0] != newWidth) {
                     width[0] = newWidth;
                     Log.d("RectangularBorderLayout", "Width: " + getWidth());
+                    setFrameWidth((int) (1F * width[0] / 974 * DEFAULT_FrameWidth));
                 }
             }
         });
@@ -104,6 +105,7 @@ public class RectangularBorderLayout extends RelativeLayout {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) getLayoutParams();
         // Ensure layout parameters are not null
         if (layoutParams != null) {
+            layoutMargin = left + right;
             // Set the new margins
             layoutParams.setMargins(left, top, right, bottom);
             // Apply the layout parameters
@@ -112,6 +114,10 @@ public class RectangularBorderLayout extends RelativeLayout {
             requestLayout();
             Log.d("RectangularBorderLayout", "Set Margins: left=" + left + ", top=" + top + ", right=" + right + ", bottom=" + bottom);
         }
+    }
+
+    public int getLayoutMargin() {
+        return layoutMargin;
     }
 
 

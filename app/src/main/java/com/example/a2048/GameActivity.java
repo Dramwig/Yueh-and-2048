@@ -65,9 +65,10 @@ public class GameActivity extends AppCompatActivity implements CornerRadiusUpdat
                 int width = view.getWidth();
                 int gridSize = gameView.gridSize; // Assuming gridSize is a property of gameView
                 int newWidth = (int) width / gridSize * gridSize;
-                int delWith = width-newWidth;
+                int delWith = width - newWidth;
                 Log.d("RectangularBorderLayout", "width=" + width + ", newWidth=" + newWidth);
-                if(delWith!=0) {
+                if (delWith != 0) {
+                    delWith += rectangularBorderLayout.getLayoutMargin();
                     rectangularBorderLayout.setMargins(delWith / 2, delWith / 2, delWith - delWith / 2, delWith - delWith / 2);
                 }
             }
