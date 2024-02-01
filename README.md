@@ -80,5 +80,4 @@
 
 - [@Aurora°]()提供了学习和完成本项目的动力
 - [@AFXR Hikari](https://github.com/AFXR17light)提供音效的设计
-- [@理想国]()进行软件测试与建议
 
