@@ -73,17 +73,13 @@ public class GameView extends GridLayout {
         setColumnCount(gridSize);
         // 初始化所有方块
         View view = this;
-        final int[] width = new int[1];
-        width[0] = 0;
+        final int[] width = {0};
         final ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 if (width[0] == 0) {
                     width[0] = view.getWidth();
-                    if (viewTreeObserver.isAlive()) {
-                        viewTreeObserver.removeOnGlobalLayoutListener(this);
-                    }
                     cardWidth = width[0] / gridSize;
                     // Log.d("cardWidth", "cardWidth: " + cardWidth);
                     addCards(cardWidth, cardWidth);

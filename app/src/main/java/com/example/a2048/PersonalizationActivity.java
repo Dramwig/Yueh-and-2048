@@ -19,7 +19,7 @@ public class PersonalizationActivity extends AppCompatActivity {
         setContentView(R.layout.personalizationpage);
 
 
-        gameView = findViewById(R.id.set_grid_game_view);
+        gameView = findViewById(R.id.grid_game_view);
         // 在视图树布局完成后加载数据，不然会崩溃
         gameView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

@@ -69,7 +69,7 @@ public class Card extends FrameLayout {
 
     public Card(@NonNull Context context, int width, boolean isInGame) {
         super(context);
-        zoomRatio = 1f * px2dp((Activity) context, 1f * width) / (200 * 160 / 420); // 控制比例
+        zoomRatio = getZoomRatio(context,width); // 控制比例
 
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
         //gradientDrawable.setCornerRadius(isInGame ? getResources().getDimension(R.dimen.game_card_radius) : getResources().getDimension(R.dimen.button_radius));
@@ -150,7 +150,7 @@ public class Card extends FrameLayout {
     }
 
     // 定义一个函数，接受一个px值作为参数，返回一个dp值
-    public static int px2dp(Activity activity, float pxValue) {
+    public static float px2dp(Activity activity, float pxValue) {
         // 获取DisplayMetrics对象
         DisplayMetrics dm = new DisplayMetrics();
         // 从activity中获取当前屏幕的信息
@@ -173,6 +173,9 @@ public class Card extends FrameLayout {
         int pxValue = Math.round(dpValue * density);
         // 返回px值
         return pxValue;
+    }
+    public static float getZoomRatio(Context context, int width){
+        return 1f * px2dp((Activity) context, 1f * width) / (200 * 160 / 420); // 控制比例
     }
 
 }

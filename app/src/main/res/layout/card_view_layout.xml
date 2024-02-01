@@ -38,22 +38,20 @@
                 android:textColor="@color/button_icon"
                 android:textSize="@dimen/button_subtext" />
 
-            <com.example.a2048.SquareView
+            <com.example.a2048.SquareLayout
                 android:id="@+id/view_game_box"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/rounded_square2" />
-
-            <com.example.a2048.GameView
-                android:id="@+id/grid_game_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignLeft="@id/view_game_box"
-                android:layout_alignTop="@id/view_game_box"
-                android:layout_alignRight="@id/view_game_box"
-                android:layout_alignBottom="@id/view_game_box"
-                android:useDefaultMargins="false" />
+                android:layout_alignParentTop="true"
+                android:background="@drawable/rounded_square2">
+
+                    <com.example.a2048.GameView
+                        android:id="@+id/grid_game_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:useDefaultMargins="false" />
+
+            </com.example.a2048.SquareLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
