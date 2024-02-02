@@ -22,7 +22,7 @@
   
 ## 安装和使用
 
-移步[Release](https://github.com/Dramwig/Yueh-and-2048/releases)直接下载安装包，在Android手机安装食用。
+移步 [Release](https://github.com/Dramwig/Yueh-and-2048/releases) 直接下载安装包，在Android手机安装食用。
 
 <details>
   
@@ -80,4 +80,12 @@
 
 - [@Aurora°]() 提供了学习和完成本项目的动力
 - [@AFXR Hikari](https://github.com/AFXR17light) 提供音效的设计
+
+<details>
+  <summary>参考</summary>
+  <p>
+  <ul>
+    <a href="[/Dramwig/Yueh-and-2048/blob/master/LICENSE](https://huaweicloud.csdn.net/650959ad6b896f66024cc66d.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDMyODA2NSwiZXhwIjoxNzA3NDA4OTQ5LCJpYXQiOjE3MDY4MDQxNDksInVzZXJuYW1lIjoicXFfMzk1NTUxNjkifQ.ZMAglTqt66APDZ1NuWZ23djX7YpYic8-lP4YXGyzSP0)https://huaweicloud.csdn.net/650959ad6b896f66024cc66d.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDMyODA2NSwiZXhwIjoxNzA3NDA4OTQ5LCJpYXQiOjE3MDY4MDQxNDksInVzZXJuYW1lIjoicXFfMzk1NTUxNjkifQ.ZMAglTqt66APDZ1NuWZ23djX7YpYic8-lP4YXGyzSP0" pcked="1">Android10.0通知Notification的使用这一篇就够了</a>
+  </ul>
+</details>
 
