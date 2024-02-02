@@ -32,7 +32,7 @@ import java.util.Random;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    @SuppressLint("WrongThread")
+    @SuppressLint({"WrongThread", "ScheduleExactAlarm"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +95,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ImageButton imageButton3 = findViewById(R.id.button_data);
         imageButton3.setOnClickListener(this);
 
+        try {
+
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e("Calendar", "Error: " + e.getMessage(), e);
+        }
 
     }
 
@@ -112,13 +119,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
             intent.setClass(this, PersonActivity.class);//也可以这样写intent.setClass(MainActivity.this, OtherActivity.class);
             startActivity(intent);
         } else if (id == R.id.button_info) {
-
+            NotificationHelper.sendNotification(this, "1 Title", "1 Text", NotificationHelper.CHANNEL_ID_Achievement);
         } else if (id == R.id.button_collection) {
-            NotificationHelper.sendNotification(this, "Notification Title", "Notification Text");
+            NotificationHelper.sendNotification(this, "2 Title", "2 Text", NotificationHelper.CHANNEL_ID_NightSpeech);
         } else if (id == R.id.button_data) {
-
+            NotificationHelper.sendNotification(this, "4 Title", "4 Text", NotificationHelper.CHANNEL_ID_Message);
         } else {
-            Log.e("onClick", "识别到未知的id");
+            Log.e("onClick", "onClick识别到未知的id");
         }
 
     }
@@ -191,6 +198,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void downloadImage(String imageUrl) {
         new AsyncTask<String, Void, Bitmap>() {
             @Override

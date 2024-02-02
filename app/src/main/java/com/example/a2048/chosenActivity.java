@@ -115,8 +115,12 @@ public class chosenActivity extends AppCompatActivity implements View.OnClickLis
                             seekBar[finalI].setProgress(progress);
                             textView[finalI].setText(string[finalI]);
                             textView[finalI].setTextColor(Color.BLACK);
-                        } else {
+                        } else if(progress<=50){
                             //seekBar[finalI].setProgress(progress);
+                            textView[finalI].setText(string[finalI] + " ⚠");
+                            textView[finalI].setTextColor(Color.RED);
+                        }else{
+                            editTextProgress[finalI].setText(String.valueOf(50));
                             textView[finalI].setText(string[finalI] + " ⚠");
                             textView[finalI].setTextColor(Color.RED);
                         }
