@@ -1,6 +1,5 @@
 package com.example.a2048;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -33,22 +32,73 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      *
-     * @param GameData
+     * @param gameData 需要插入的数据
      * @return 返回新插入的行的ID，发生错误，插入不成功，则返回-1
      */
-    public long insertGameData(GameData GameData) {
+    public long insertGameData(GameData gameData) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(GameData.COLUMN_DATA, GameData.getGameDataAsString());
-        values.put(GameData.COLUMN_SCORE, GameData.getGameScore());
-        values.put(GameData.COLUMN_MOVE, GameData.getMoveNum());
-        values.put(GameData.COLUMN_SIZE, GameData.getGridSize());
-        values.put(GameData.COLUMN_TIME, GameData.getCreatedTime());
-        values.put(GameData.COLUMN_GAMING, GameData.getGamingTime());
+        values.put(GameData.COLUMN_DATA, gameData.getGameDataAsString());
+        values.put(GameData.COLUMN_SCORE, gameData.getGameScore());
+        values.put(GameData.COLUMN_MOVE, gameData.getMoveNum());
+        values.put(GameData.COLUMN_SIZE, gameData.getGridSize());
+        values.put(GameData.COLUMN_TIME, gameData.getCreatedTime());
+        values.put(GameData.COLUMN_GAMING, gameData.getGamingTime());
         long id = db.insert(GameData.TABLE_NAME, null, values);
         db.close();
         return id;
     }
+
+    /**
+     *
+     * @param id 对应行索引，需要查找的 id
+     * @return 返回对应 id 的数据 GameData，没找到返回 null
+     */
+    public GameData getGameDataById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        GameData gameData = null;
+
+        String[] projection = {
+                GameData.COLUMN_ID,
+                GameData.COLUMN_DATA,
+                GameData.COLUMN_SCORE,
+                GameData.COLUMN_MOVE,
+                GameData.COLUMN_SIZE,
+                GameData.COLUMN_TIME,
+                GameData.COLUMN_GAMING
+        };
+
+        String selection = GameData.COLUMN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+
+        Cursor cursor = db.query(
+                GameData.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String json = cursor.getString(cursor.getColumnIndexOrThrow(GameData.COLUMN_DATA));
+            int score = cursor.getInt(cursor.getColumnIndexOrThrow(GameData.COLUMN_SCORE));
+            int moveNum = cursor.getInt(cursor.getColumnIndexOrThrow(GameData.COLUMN_MOVE));
+            int gridSize = cursor.getInt(cursor.getColumnIndexOrThrow(GameData.COLUMN_SIZE));
+            long createdTime = cursor.getLong(cursor.getColumnIndexOrThrow(GameData.COLUMN_TIME));
+            long gamingTime = cursor.getLong(cursor.getColumnIndexOrThrow(GameData.COLUMN_GAMING));
+
+            gameData = new GameData(id, json, score, moveNum, gridSize, createdTime, gamingTime);
+
+            cursor.close();
+        }
+
+        db.close();
+
+        return gameData;
+    }
+
 
     /**
      *
@@ -63,23 +113,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                GameData GameData = new GameData();
-                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(GameData.COLUMN_ID));
-                @SuppressLint("Range") String gameDataString = cursor.getString(cursor.getColumnIndex(GameData.COLUMN_SCORE));
-                @SuppressLint("Range") int gameScore = cursor.getInt(cursor.getColumnIndex(GameData.COLUMN_DATA));
-                @SuppressLint("Range") int moveNum = cursor.getInt(cursor.getColumnIndex(GameData.COLUMN_MOVE));
-                @SuppressLint("Range") int gridSize = cursor.getInt(cursor.getColumnIndex(GameData.COLUMN_SIZE));
-                @SuppressLint("Range") long createdTime = cursor.getLong(cursor.getColumnIndex(GameData.COLUMN_TIME));
-                @SuppressLint("Range") long gamingTime = cursor.getLong(cursor.getColumnIndex(GameData.COLUMN_GAMING));
-                GameData.setId(id);
-                GameData.setArray(gameDataString);
-                GameData.setGameScore(gameScore);
-                GameData.setMoveNum(moveNum);
-                GameData.setGridSize(gridSize);
-                GameData.setCreatedTime(createdTime);
-                GameData.setGamingTime(gamingTime);
+                GameData gameData = new GameData();
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(GameData.COLUMN_ID));
+                String gameDataString = cursor.getString(cursor.getColumnIndexOrThrow(GameData.COLUMN_SCORE));
+                int gameScore = cursor.getInt(cursor.getColumnIndexOrThrow(GameData.COLUMN_DATA));
+                int moveNum = cursor.getInt(cursor.getColumnIndexOrThrow(GameData.COLUMN_MOVE));
+                int gridSize = cursor.getInt(cursor.getColumnIndexOrThrow(GameData.COLUMN_SIZE));
+                long createdTime = cursor.getLong(cursor.getColumnIndexOrThrow(GameData.COLUMN_TIME));
+                long gamingTime = cursor.getLong(cursor.getColumnIndexOrThrow(GameData.COLUMN_GAMING));
+                gameData.setId(id);
+                gameData.setArray(gameDataString);
+                gameData.setGameScore(gameScore);
+                gameData.setMoveNum(moveNum);
+                gameData.setGridSize(gridSize);
+                gameData.setCreatedTime(createdTime);
+                gameData.setGamingTime(gamingTime);
 
-                GameDataList.add(GameData);
+                GameDataList.add(gameData);
             }
             cursor.close(); // 关闭游标
         }
@@ -99,6 +149,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int count = cursor.getCount();
         cursor.close();
         return count;
+    }
+
+    /**
+     *
+     * @param id update row id （需要更新的ID）
+     * @param gameData update value （去更新数据库的内容）
+     * @return the number of rows affected (影响到的行数，如果没更新成功，返回0。所以当return 0时，需要告诉用户更新不成功)
+     */
+    public int updateBusinessCard(int id, GameData gameData) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(GameData.COLUMN_DATA, gameData.getGameDataAsString());
+        values.put(GameData.COLUMN_SCORE, gameData.getGameScore());
+        values.put(GameData.COLUMN_MOVE, gameData.getMoveNum());
+        values.put(GameData.COLUMN_SIZE, gameData.getGridSize());
+        values.put(GameData.COLUMN_TIME, gameData.getCreatedTime());
+        values.put(GameData.COLUMN_GAMING, gameData.getGamingTime());
+        int idReturnByUpdate = db.update(GameData.TABLE_NAME, values, GameData.COLUMN_ID + " =? ", new String[]{String.valueOf(id)});
+        db.close();
+        return idReturnByUpdate;
     }
 
 

@@ -48,10 +48,21 @@ class GameData implements Serializable {
         this.gamingTime = num4;
     }
 
+    GameData(int id,String  json,int score,int moveNum,int gridSize,long createdTime,long gamingTime){
+        this.id = id;
+        setArray(json);
+        this.gameScore = score;
+        this.moveNum = moveNum;
+        this.gridSize = gridSize;
+        this.createdTime = createdTime;
+        this.gamingTime = gamingTime;
+    }
+
     public String getGameDataAsString() {
         return GameData2String(this);
     }
-    public void setArray(String json){
+
+    public void setArray(String json) {
         array = String2GameData(json).array;
     }
 
