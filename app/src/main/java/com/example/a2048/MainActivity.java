@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -87,6 +88,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         button2.setOnClickListener(this);
         ShapeableImageView imageButton = findViewById(R.id.imageView);
         imageButton.setOnClickListener(this);
+        ImageButton imageButton1 = findViewById(R.id.button_info);
+        imageButton1.setOnClickListener(this);
+        ImageButton imageButton2 = findViewById(R.id.button_collection);
+        imageButton2.setOnClickListener(this);
+        ImageButton imageButton3 = findViewById(R.id.button_data);
+        imageButton3.setOnClickListener(this);
+
 
     }
 
@@ -100,14 +108,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
         } else if (id == R.id.btn_startGame_train) {
             intent.setClass(this, chosenActivity.class);//也可以这样写intent.setClass(MainActivity.this, OtherActivity.class);
             startActivity(intent);
-        } else if (id == R.id.imageView){
+        } else if (id == R.id.imageView) {
             intent.setClass(this, PersonActivity.class);//也可以这样写intent.setClass(MainActivity.this, OtherActivity.class);
             startActivity(intent);
-        }else{
+        } else if (id == R.id.button_info) {
+
+        } else if (id == R.id.button_collection) {
+            NotificationHelper.sendNotification(this, "Notification Title", "Notification Text");
+        } else if (id == R.id.button_data) {
+
+        } else {
             Log.e("onClick", "识别到未知的id");
         }
 
     }
+
+    // --------
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -145,6 +161,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
+    // -----
 
     private void setWallpaperFromDownloads() {
         ImageView imageView = findViewById(R.id.background_view_to_blur);
