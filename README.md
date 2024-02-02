@@ -72,7 +72,7 @@
 
 版权所有 (c) 2023 Zixi Wang
 
-该项目在开源许可证下发布，详细信息请参阅 [LICENSE](LICENSE) 文件。
+该项目在 MPL-2.0 开源许可证下发布，详细信息请参阅 [LICENSE](LICENSE) 文件。
 
 ## 致谢
 
