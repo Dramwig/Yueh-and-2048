@@ -1,8 +1,6 @@
 package com.example.a2048;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -17,8 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -182,16 +178,7 @@ public class GameActivity extends AppCompatActivity implements CornerRadiusUpdat
     public void saveGameData() {
         int index = 0;
         GameData gameData = gameView.getGameData();
-        saveGameData(this, "save_box" + index, gameData);
-    }
-
-    public void saveGameData(Context context, String key, GameData gameData) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("gameData", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(gameData);
-        editor.putString(key, json);
-        editor.apply();
+        StorageActivity.saveGameData(this, index, gameData);
     }
 
     // ----

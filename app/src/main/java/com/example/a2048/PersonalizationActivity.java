@@ -32,7 +32,7 @@ public class PersonalizationActivity extends AppCompatActivity implements Corner
                         {256, 512, 1024, 2048},
                         {4096, 8192, 16384, 32768}
                 };
-                gameView.setGameData(grid, 0, 0);
+                gameView.setGameData(grid, 0, 0,0);
             }
         });
     }

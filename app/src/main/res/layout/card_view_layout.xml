@@ -74,7 +74,15 @@
                     android:layout_height="wrap_content"
                     android:text="滑动次数："
                     android:textColor="@color/button_subtext"
-                    android:textSize="@dimen/button_text" />
+                    android:textSize="@dimen/button_subtext" />
+
+                <TextView
+                    android:id="@+id/text_gaming_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="游戏耗时："
+                    android:textColor="@color/button_subtext"
+                    android:textSize="@dimen/button_subtext" />
 
             </LinearLayout>
 

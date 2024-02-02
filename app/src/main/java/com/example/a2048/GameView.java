@@ -33,6 +33,7 @@ public class GameView extends GridLayout {
     private List<Animator> newAnimatorList = new ArrayList<>();
     private int moveTime = getResources().getInteger(R.integer.moveTime), mergeTime = getResources().getInteger(R.integer.mergeTime), createTime = getResources().getInteger(R.integer.createTime);
     private int gameScore = 0, moveNum = 0;
+    public long createdTime = System.currentTimeMillis(), gamingTime = 0;
     private GameActivity gameActivity;
     private SoundPool soundPool;
     private int sound_merge, sound_create, sound_warn;
@@ -85,7 +86,7 @@ public class GameView extends GridLayout {
                     addCards(cardWidth, cardWidth);
                     if (isInGame)
                         addRandomCard(addRandomCardNum + 1);
-                } else if(width[0] != view.getWidth()){
+                } else if (width[0] != view.getWidth()) {
                     width[0] = view.getWidth();
                     cardWidth = width[0] / gridSize;
                     Log.d("cardWidth", "cardWidth: " + cardWidth);
@@ -613,6 +614,11 @@ public class GameView extends GridLayout {
             gameActivity.updateMoveView();
     }
 
+    public void setGamingTime(long num) {
+        gamingTime = num;
+        //if (isInGame)
+    }
+
     public int getMoveNum() {
         return moveNum;
     }
@@ -652,39 +658,24 @@ public class GameView extends GridLayout {
         }
     }
 
-    public void setGameData(int gridSize, int[][] cardsNum, int gameScore, int moveNum) {
-        this.gridSize = gridSize;
-        setGameScore(gameScore);
-        setMoveNum(moveNum);
-
-        // 初始化组件
-        setColumnCount(gridSize);
-
-        // 初始化所有方块
-        cardWidth = this.getWidth() / gridSize;
-        addCards(cardWidth, cardWidth, cardsNum);
-    }
-
-    public void setGameData(int[][] cardsNum, int gameScore, int moveNum) {
+    public void setGameData(int[][] cardsNum, int gameScore, int moveNum, long gamingTime) {
         setCardsNum(cardsNum);
         setGameScore(gameScore);
         setMoveNum(moveNum);
+        setGamingTime(gamingTime);
     }
 
     public void setGameData(GameData gameData) {
-        int[][] cardsNum = gameData.getArray();
-        gameScore = gameData.getGameScore();
-        moveNum = gameData.getMoveNum();
         if (gameData.getGridSize() > 0 && gameData.getGridSize() != gridSize) {
             gridSize = gameData.getGridSize();
             resetGame(gridSize);
         }
-        setGameData(cardsNum, gameScore, moveNum);
+        setGameData(gameData.getArray(), gameData.getGameScore(), gameData.getMoveNum(), gameData.getGamingTime());
     }
 
     public GameData getGameData() {
         int[][] array = getCardsNum();
-        GameData data = new GameData(array, gameScore, moveNum, gridSize);
+        GameData data = new GameData(array, gameScore, moveNum, gridSize, System.currentTimeMillis() - createdTime);
         return data;
     }
 

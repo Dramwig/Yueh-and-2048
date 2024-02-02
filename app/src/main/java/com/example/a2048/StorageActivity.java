@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -16,25 +17,26 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StorageActivity extends AppCompatActivity implements View.OnClickListener, CornerRadiusUpdater{
+public class StorageActivity extends AppCompatActivity implements View.OnClickListener, CornerRadiusUpdater {
 
-    public void updateCornerRadius(float radius){};
+    public void updateCornerRadius(float radius) {
+    }
+
+    ;
 
     private static final int SAVE_BOX_NUM = 6;
     private final TextView[] save_box_text_score = new TextView[SAVE_BOX_NUM];
     private final TextView[] save_box_text_move_times = new TextView[SAVE_BOX_NUM];
+    private final TextView[] save_box_text_gaming_time = new TextView[SAVE_BOX_NUM];
     private final TextView[] save_box_text_save_time = new TextView[SAVE_BOX_NUM];
     private final GameView[] save_box_grid_game_view = new GameView[SAVE_BOX_NUM];
     private final View[] save_box_view_background = new View[SAVE_BOX_NUM];
@@ -79,6 +81,9 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
 
             save_box_text_move_times[i] = save_box.findViewById(R.id.text_move_times);
             save_box_text_move_times[i].setText("滑动次数：无");
+
+            save_box_text_gaming_time[i] = save_box.findViewById(R.id.text_gaming_time);
+            save_box_text_gaming_time[i].setText("游戏耗时：无");
 
             save_box_text_save_time[i] = save_box.findViewById(R.id.text_save_time);
             save_box_text_save_time[i].setText("No Date");
@@ -159,41 +164,50 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
             save_box_grid_game_view[index].setGameData(gameData);
             save_box_text_score[index].setText("得分：" + gameData.getGameScore());
             save_box_text_move_times[index].setText("滑动次数：" + gameData.getMoveNum());
+            save_box_text_gaming_time[index].setText("游戏耗时：" + gameData.getGamingTime());
             save_box_text_save_time[index].setText(gameData.getCreatedTimeAsString());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             save_box_text_save_time[index].setText(e.getMessage());
             saveGameData(index, null);
-            System.out.println(index+"号存档覆盖为空：读出错误");
+            Toast.makeText(this, index + "号存档覆盖为空：读出错误", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void saveGameData(int index, GameData gameData) {
         saveGameData(this, "save_box" + index, gameData);
     }
-    public void saveGameData(Context context, String key, GameData gameData) {
+
+    public static void saveGameData(Context context, int index, GameData gameData) {
+        saveGameData(context, "save_box" + index, gameData);
+    }
+
+    public static void saveGameData(Context context, String key, GameData gameData) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("gameData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(gameData);
+        String json = gameData.getGameDataAsString();
         editor.putString(key, json);
         editor.apply();
     }
 
-
     public GameData loadGameData(int index) {
-        return loadGameData(this, "save_box" + index);
+        try {
+            return loadGameData(this, "save_box" + index);
+        } catch (Exception e) {
+            // 记录异常信息，以便调试
+            Log.e("GameDataLoader", "Error loading game data", e);
+            save_box_text_save_time[index].setText(e.getMessage());
+            saveGameData(index, null);
+            Toast.makeText(this, index + "号存档覆盖为空：读出错误", Toast.LENGTH_SHORT).show();
+            return null;
+        }
     }
 
     public GameData loadGameData(Context context, String key) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("gameData", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
         String json = sharedPreferences.getString(key, null);
-        Type type = new TypeToken<GameData>() {
-        }.getType();
-        return gson.fromJson(json, type);
+        return GameData.String2GameData(json);
     }
-
 
     // -------------------
 
