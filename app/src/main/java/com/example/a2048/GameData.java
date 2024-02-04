@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.Locale;
 
 class GameData implements Serializable {
-
     public static final String TABLE_NAME = "GameData";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_DATA = "gameData";

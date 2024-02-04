@@ -1,4 +1,5 @@
 package com.example.a2048;
+
 import java.util.LinkedList;
 
 public class LimitedSizeStack<T> {
@@ -20,8 +21,11 @@ public class LimitedSizeStack<T> {
         return stack.size();
     }
 
-    public boolean isEmpty()
-    {
-        return size()==0;
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    public void clear() {
+        stack.clear();
     }
 }

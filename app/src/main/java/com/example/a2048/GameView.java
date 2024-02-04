@@ -30,17 +30,17 @@ public class GameView extends GridLayout {
     private Card[][] Cards;
     private final Random random = new Random();
     protected int gridSize = 4, cardWidth, addRandomCardNum = 1;
-    private List<Animator> newAnimatorList = new ArrayList<>();
-    private int moveTime = getResources().getInteger(R.integer.moveTime), mergeTime = getResources().getInteger(R.integer.mergeTime), createTime = getResources().getInteger(R.integer.createTime);
+    private final List<Animator> newAnimatorList = new ArrayList<>();
+    private final int moveTime = getResources().getInteger(R.integer.moveTime), mergeTime = getResources().getInteger(R.integer.mergeTime), createTime = getResources().getInteger(R.integer.createTime);
     private int gameScore = 0, moveNum = 0;
-    public long createdTime = System.currentTimeMillis(), gamingTime = 0;
+    public long createdTime = System.currentTimeMillis();
     private GameActivity gameActivity;
     private SoundPool soundPool;
     private int sound_merge, sound_create, sound_warn;
     private int maxMergeNum;
     public boolean isInGame = true;
     private boolean isTrainingMode = false;
-    private LimitedSizeStack<GameData> stack_CardsNum = new LimitedSizeStack<>();
+    private final LimitedSizeStack<GameData> stack_CardsNum = new LimitedSizeStack<>();
 
     public void setGameActivity(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
@@ -615,7 +615,7 @@ public class GameView extends GridLayout {
     }
 
     public void setGamingTime(long num) {
-        gamingTime = num;
+        createdTime = System.currentTimeMillis() - num;
         //if (isInGame)
     }
 
@@ -663,6 +663,8 @@ public class GameView extends GridLayout {
         setGameScore(gameScore);
         setMoveNum(moveNum);
         setGamingTime(gamingTime);
+        stack_CardsNum.clear();
+        updatePreviousStatusNum();
     }
 
     public void setGameData(GameData gameData) {
