@@ -164,7 +164,7 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
             save_box_grid_game_view[index].setGameData(gameData);
             save_box_text_score[index].setText("得分：" + gameData.getGameScore());
             save_box_text_move_times[index].setText("滑动次数：" + gameData.getMoveNum());
-            save_box_text_gaming_time[index].setText("游戏耗时：" + gameData.getGamingTime());
+            save_box_text_gaming_time[index].setText("游戏耗时：" + formatTime((int)gameData.getGamingTime()/1000));
             save_box_text_save_time[index].setText(gameData.getCreatedTimeAsString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,6 +208,30 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
         String json = sharedPreferences.getString(key, null);
         return GameData.String2GameData(json);
     }
+
+    // 辅助方法：将秒数格式化为度分秒字符串（度° 分' 秒''）
+    public static String formatTime(int seconds) {
+        int degrees = seconds / 3600; // 1小时 = 3600秒
+        int remainingSeconds = seconds % 3600;
+        int minutes = remainingSeconds / 60;
+        int remainingSeconds2 = remainingSeconds % 60;
+
+        StringBuilder formattedTime = new StringBuilder();
+
+        if (degrees > 0) {
+            formattedTime.append(String.format("%02d° ", degrees));
+        }
+
+        if (minutes > 0 || degrees > 0) {
+            formattedTime.append(String.format("%02d' ", minutes));
+        }
+
+        formattedTime.append(String.format("%02d''", remainingSeconds2));
+
+        return formattedTime.toString();
+    }
+
+
 
     // -------------------
 

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -21,8 +22,8 @@ import java.io.InputStream;
 
 public class GameActivity extends AppCompatActivity implements CornerRadiusUpdater {
     private GameView gameView;
-    private GameActivity gamePage = this;
-    TextView text_score, text_move, text_status;
+    private final GameActivity gamePage = this;
+    TextView text_score, text_move, text_status, text_time;
     private static final int REQUEST_CODE = 1;
     com.example.a2048.RectangularBorderLayout rectangularBorderLayout;
 
@@ -50,6 +51,7 @@ public class GameActivity extends AppCompatActivity implements CornerRadiusUpdat
         text_move = findViewById(R.id.text_move);
         text_score = findViewById(R.id.text_score);
         text_status = findViewById(R.id.text_status);
+        text_time = findViewById(R.id.button_note_text);
 
         rectangularBorderLayout = findViewById(R.id.border_game_view);
         gameView = findViewById(R.id.grid_game_view);
@@ -70,6 +72,8 @@ public class GameActivity extends AppCompatActivity implements CornerRadiusUpdat
             }
         });
 
+        // 启动计时器
+        startTimer();
 
         // 【个性化界面】读取存档数据展示
         Intent intent = getIntent();
@@ -151,6 +155,56 @@ public class GameActivity extends AppCompatActivity implements CornerRadiusUpdat
         setResult(chosenActivity.RESULT_CLOSE_CHOSEN_ACTIVITY);
         finish();  // 关闭当前的 GameActivity
     }
+
+    private long gamingTime;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // 活动进入后台
+        Log.d("GameActivity", "活动进入后台");
+        gamingTime = gameView.getGamingTime(); // 防止计入后台时间
+        stopTimer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 活动回到前台
+        Log.d("GameActivity", "活动回到前台");
+        gameView.setGamingTime(gamingTime);  // 防止计入后台时间
+        startTimer();
+    }
+
+    private final Handler handler = new Handler();
+
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.d("GameActivity", "Handler的消息队列执行");
+            int time = (int) gameView.getGamingTime() / 1000;
+            text_time.setText(formatTime(time));
+            handler.postDelayed(this, 1000); // 每秒更新一次
+        }
+    };
+
+    // 在启动计时器时调用此方法
+    private void startTimer() {
+        handler.postDelayed(runnable, 1000); // 启动计时器
+    }
+
+    // 在停止计时器时调用此方法
+    private void stopTimer() {
+        handler.removeCallbacks(runnable); // 停止计时器
+    }
+
+    // 辅助方法：将秒数格式化为时间字符串
+    public static String formatTime(int seconds) {
+        int minutes = seconds / 60;
+        int remainingSeconds = seconds % 60;
+        return String.format("%02d:%02d", minutes, remainingSeconds);
+    }
+
 
     public void updateScoreView() {
         text_score.setText("" + gameView.getGameScore());

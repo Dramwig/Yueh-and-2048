@@ -22,6 +22,8 @@ import android.view.animation.ScaleAnimation;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -169,21 +171,9 @@ public class GameView extends GridLayout {
         }
     }
 
-    private void addCards(int width, int height, int[][] cardsNum) {
-        Card c;
-        for (int i = 0; i < gridSize; ++i) {
-            for (int j = 0; j < gridSize; ++j) {
-                c = new Card(getContext(), width, isInGame);
-                addView(c, width, height);
-                Cards[i][j] = c;
-            }
-        }
-        setCardsNum(cardsNum);
-    }
-
     private void setListener() {
         setOnTouchListener(new OnTouchListener() {
-            private float staX, staY, endX, endY;
+            private float staX, staY;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -193,8 +183,9 @@ public class GameView extends GridLayout {
                         staY = event.getY();
                         break;
                     case MotionEvent.ACTION_UP:
-                        endX = event.getX();
-                        endY = event.getY();
+                        // 其他停止位置信息
+                        float endX = event.getX();
+                        float endY = event.getY();
                         int sensitiveDistance = 50;
                         Direction dir = null;
                         if (Math.abs(endX - staX) > Math.abs(endY - staY)) {
@@ -204,6 +195,9 @@ public class GameView extends GridLayout {
                             } else if (endX - staX < -sensitiveDistance) {
                                 dir = Direction.LEFT;
                                 Log.d("move", "L");
+                            } else {
+                                // 检测到点击操作，调用performClick，消除onTouch的警告
+                                performClick();
                             }
                         } else {
                             if (endY - staY < -sensitiveDistance) {
@@ -212,6 +206,9 @@ public class GameView extends GridLayout {
                             } else if (endY - staY > sensitiveDistance) {
                                 dir = Direction.DOWN;
                                 Log.d("move", "D");
+                            } else {
+                                // 检测到点击操作，调用performClick，消除onTouch的警告
+                                performClick();
                             }
                         }
                         if (dir != null && moveCards(dir)) {
@@ -221,7 +218,7 @@ public class GameView extends GridLayout {
                             // 设置动画监听器
                             animatorSet.addListener(new Animator.AnimatorListener() {
                                 @Override
-                                public void onAnimationStart(Animator animator) {
+                                public void onAnimationStart(@NonNull Animator animator) {
                                     // 动画开始时的逻辑
                                     saveCurrentState(); // 为撤回保存数据
                                     if (maxMergeNum > 0)
@@ -229,7 +226,7 @@ public class GameView extends GridLayout {
                                 }
 
                                 @Override
-                                public void onAnimationEnd(Animator animator) {
+                                public void onAnimationEnd(@NonNull Animator animator) {
                                     // 所有动画结束后的逻辑
                                     // 执行后续代码
                                     addMoveNum();
@@ -241,12 +238,12 @@ public class GameView extends GridLayout {
                                 }
 
                                 @Override
-                                public void onAnimationCancel(Animator animator) {
+                                public void onAnimationCancel(@NonNull Animator animator) {
                                     // 动画取消时的逻辑
                                 }
 
                                 @Override
-                                public void onAnimationRepeat(Animator animator) {
+                                public void onAnimationRepeat(@NonNull Animator animator) {
                                     // 动画重复时的逻辑
                                 }
                             });
@@ -619,6 +616,10 @@ public class GameView extends GridLayout {
         //if (isInGame)
     }
 
+    public long getGamingTime() {
+        return System.currentTimeMillis() - createdTime;
+    }
+
     public int getMoveNum() {
         return moveNum;
     }
@@ -668,6 +669,8 @@ public class GameView extends GridLayout {
     }
 
     public void setGameData(GameData gameData) {
+        if(gameData==null)
+            return;
         if (gameData.getGridSize() > 0 && gameData.getGridSize() != gridSize) {
             gridSize = gameData.getGridSize();
             resetGame(gridSize);
@@ -677,8 +680,7 @@ public class GameView extends GridLayout {
 
     public GameData getGameData() {
         int[][] array = getCardsNum();
-        GameData data = new GameData(array, gameScore, moveNum, gridSize, System.currentTimeMillis() - createdTime);
-        return data;
+        return new GameData(array, gameScore, moveNum, gridSize, getGamingTime());
     }
 
     private void saveCurrentState() {

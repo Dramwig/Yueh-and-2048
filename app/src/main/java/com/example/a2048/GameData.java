@@ -32,8 +32,8 @@ class GameData implements Serializable {
     public int gameScore;
     public int moveNum;
     public int gridSize;
-    public long createdTime;
-    public long gamingTime;
+    public long createdTime; // 存档创建时间
+    public long gamingTime; // 游戏时常（到存档创建时的）
 
     public GameData() {
     }
@@ -47,7 +47,7 @@ class GameData implements Serializable {
         this.gamingTime = num4;
     }
 
-    GameData(int id,String  json,int score,int moveNum,int gridSize,long createdTime,long gamingTime){
+    GameData(int id, String json, int score, int moveNum, int gridSize, long createdTime, long gamingTime) {
         this.id = id;
         setArray(json);
         this.gameScore = score;
@@ -67,8 +67,7 @@ class GameData implements Serializable {
 
     public static String GameData2String(GameData gameData) {
         Gson gson = new Gson();
-        String json = gson.toJson(gameData);
-        return json;
+        return gson.toJson(gameData);
     }
 
     public static GameData String2GameData(String json) {
