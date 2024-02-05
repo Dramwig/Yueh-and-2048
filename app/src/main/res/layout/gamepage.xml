@@ -88,7 +88,8 @@
             android:layout_toStartOf="@id/button_restart"
             android:width="50dp"
             android:gravity="center"
-            android:text="time"
+            android:text="00:00"
+            android:textSize="12sp"
             android:textColor="#000000" />
 
         <ImageView

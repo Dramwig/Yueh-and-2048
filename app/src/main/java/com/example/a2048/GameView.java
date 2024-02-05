@@ -113,10 +113,10 @@ public class GameView extends GridLayout {
     }
 
     public void resetGame(int gridSize) {
+        removeAllViews(); //清除GridLayout原有元素
         this.gridSize = gridSize;
         setColumnCount(gridSize);
         Cards = new Card[gridSize][gridSize];
-        removeAllViews(); //清除GridLayout原有元素
         // 初始化所有方块
         View view = this;
         int width = view.getWidth();
@@ -126,7 +126,7 @@ public class GameView extends GridLayout {
     }
 
     public void restartGame() {
-        saveCurrentState();
+        saveCurrentState(); // 为撤回保存数据
         for (int i = 0; i < gridSize; ++i) {
             for (int j = 0; j < gridSize; ++j) {
                 Cards[i][j].setNum(0);
@@ -136,6 +136,7 @@ public class GameView extends GridLayout {
         setMoveNum(0);
         addRandomCard(addRandomCardNum + 1);
         setOutTrainingMode();
+        setGamingTime(0); //重新计时
     }
 
     private void adjustCardDimensions(int newWidth, int newHeight) {
@@ -612,6 +613,8 @@ public class GameView extends GridLayout {
     }
 
     public void setGamingTime(long num) {
+        if(isInGame)
+            gameActivity.gamingTime = num; //防止因为是后台转入前台而覆盖
         createdTime = System.currentTimeMillis() - num;
         //if (isInGame)
     }
@@ -660,12 +663,12 @@ public class GameView extends GridLayout {
     }
 
     public void setGameData(int[][] cardsNum, int gameScore, int moveNum, long gamingTime) {
+        //saveCurrentState(); // 造成撤回循环，因为撤回也会调用这个
         setCardsNum(cardsNum);
         setGameScore(gameScore);
         setMoveNum(moveNum);
         setGamingTime(gamingTime);
-        stack_CardsNum.clear();
-        updatePreviousStatusNum();
+        //Log.d("GameView", "setGamingTime:"+gamingTime+" "+getGamingTime());
     }
 
     public void setGameData(GameData gameData) {
@@ -686,6 +689,7 @@ public class GameView extends GridLayout {
     private void saveCurrentState() {
         // 得到Data对象并将其压入栈中
         GameData data = getGameData();
+        // if(!data.equals(stack_CardsNum.last())) //禁止压入两个相同的
         stack_CardsNum.push(data);
         updatePreviousStatusNum();
     }
@@ -697,7 +701,6 @@ public class GameView extends GridLayout {
             updatePreviousStatusNum();
             setGameData(previousData);
             setAsTrainingMode();
-            updatePreviousStatusNum();
         } else {
             playSound(sound_warn, 3);
         }
@@ -717,6 +720,10 @@ public class GameView extends GridLayout {
             gameActivity.exchangeMode(false);
             Toast.makeText(getContext(), "已切换为常规模式", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void clearStack(){
+        stack_CardsNum.clear();
     }
 
 
