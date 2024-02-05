@@ -156,7 +156,7 @@ public class GameActivity extends AppCompatActivity implements CornerRadiusUpdat
         finish();  // 关闭当前的 GameActivity
     }
 
-    private long gamingTime;
+    protected long gamingTime;
 
     @Override
     protected void onPause() {
@@ -181,9 +181,9 @@ public class GameActivity extends AppCompatActivity implements CornerRadiusUpdat
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Log.d("GameActivity", "Handler的消息队列执行");
             int time = (int) gameView.getGamingTime() / 1000;
             text_time.setText(formatTime(time));
+            //Log.d("GameView", "Handler的消息队列执行"+gameView.getGamingTime() );
             handler.postDelayed(this, 1000); // 每秒更新一次
         }
     };

@@ -31,8 +31,6 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
     public void updateCornerRadius(float radius) {
     }
 
-    ;
-
     private static final int SAVE_BOX_NUM = 6;
     private final TextView[] save_box_text_score = new TextView[SAVE_BOX_NUM];
     private final TextView[] save_box_text_move_times = new TextView[SAVE_BOX_NUM];
@@ -47,7 +45,6 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
     private int chosenIndex = -1;
     GameData gameData;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -13,6 +13,10 @@ public class LimitedSizeStack<T> {
         }
     }
 
+    public T last() {
+        return stack.isEmpty() ? null : stack.getLast();
+    }
+
     public T pop() {
         return stack.size() > 0 ? stack.removeLast() : null;  // Remove and return the last element
     }
